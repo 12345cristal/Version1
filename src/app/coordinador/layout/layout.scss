@@ -1,14 +1,49 @@
-.main-content {
-  margin-left: 0;
-  transition: margin-left .25s ease;
+/* =====================================
+   LAYOUT GENERAL – SIN SCROLL INNECESARIO
+===================================== */
 
-  &.shift {
-    margin-left: 260px;
-  }
+/* El body no debe generar scroll nunca */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden; /* ⭐ Control TOTAL del scroll */
+}
+
+/* El layout entero se comporta como app */
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* ⭐ Siempre el alto exacto de pantalla */
+  overflow: hidden;
+}
+
+/* =====================================
+   MAIN CONTAINER – SOLO SCROLL SI HAY CONTENIDO
+===================================== */
+.main-container {
+  flex: 1;                 /* ⭐ Ocupa todo lo que sobra */
+  overflow-y: auto;        /* ⭐ Scroll solo si se necesita */
+  overflow-x: hidden;
+  background: var(--color-bg);
+  transition: margin-left .25s ease;
+  padding-top: 64px;       /* Altura del toolbar */
+}
+
+/* Cuando sidebar está abierto */
+.main-container.shift {
+  margin-left: 250px;
 }
 
 @media (max-width: 768px) {
-  .main-content.shift {
+  .main-container.shift {
     margin-left: 220px;
   }
+}
+
+/* Para que las páginas no generen scroll solas */
+.page-wrapper {
+  padding: 2rem;
+  min-height: calc(100vh - 64px);
+  box-sizing: border-box;
 }

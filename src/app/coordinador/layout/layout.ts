@@ -19,27 +19,19 @@ import { SidebarComponent } from '../sidebar/sidebar';
 })
 export class LayoutComponent {
 
-  sidebarOpen: boolean = true;
-  isMobile: boolean = false;
+  sidebarOpen = true;
+  isMobile = false;
 
   constructor() {
-    this.checkScreenSize();
+    this.checkScreen();
   }
 
-  /**
-   * Detecta cambios de tamaño en pantalla en tiempo real.
-   * Si la pantalla es móvil, el sidebar se oculta.
-   */
   @HostListener('window:resize')
   onResize() {
-    this.checkScreenSize();
+    this.checkScreen();
   }
 
-  /**
-   * Verificar si la pantalla es móvil o escritorio.
-   * < 900px = se oculta el sidebar automáticamente
-   */
-  private checkScreenSize() {
+  checkScreen() {
     this.isMobile = window.innerWidth < 900;
 
     if (this.isMobile) {
@@ -49,11 +41,6 @@ export class LayoutComponent {
     }
   }
 
-  /**
-   * Se ejecuta cuando el usuario presiona la hamburguesa en el toolbar.
-   * Si es móvil → abre/cierra tipo "drawer".
-   * Si es escritorio → toggle normal.
-   */
   toggleSidebar() {
     this.sidebarOpen = !this.sidebarOpen;
   }

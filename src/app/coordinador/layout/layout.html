@@ -1,7 +1,12 @@
 <app-toolbar (toggleSidebar)="toggleSidebar()"></app-toolbar>
 
-<app-sidebar [opened]="sidebarOpen"></app-sidebar>
+<app-sidebar 
+  [opened]="sidebarOpen" 
+  (close)="toggleSidebar()">
+</app-sidebar>
 
-<main class="main-content" [class.shift]="sidebarOpen">
-  <router-outlet />
+<main class="main-container" [class.shift]="sidebarOpen">
+  <div class="page-wrapper">
+    <router-outlet />
+  </div>
 </main>
