@@ -1,1 +1,78 @@
-/* You can add global styles to this file, and also import other style files */
+/* ============================================================
+   ANGULAR MATERIAL 3 – THEME (SIN PALETAS SASS)
+   Compatible 100% con Angular 17–22
+============================================================ */
+@use '@angular/material' as mat;
+
+/* ============================================================
+   🌕🌑 TEMA CLARO / OSCURO GLOBAL
+   (Controlado por ThemeService)
+============================================================ */
+
+/* ======== TEMA CLARO (default) ======== */
+:root {
+  --color-primary: #2563eb;
+  --color-primary-light: #60a5fa;
+
+  --color-bg: #ffffff;
+  --color-surface: #f7f9fc;
+
+  --color-text: #1e293b;
+  --color-text-secondary: #64748b;
+
+  --color-border: #e2e8f0;
+}
+
+/* ======== TEMA OSCURO ======== */
+:root.dark-theme {
+  --color-primary: #3b82f6;
+  --color-primary-light: #93c5fd;
+
+  --color-bg: #0f172a;
+  --color-surface: #1e293b;
+
+  --color-text: #e2e8f0;
+  --color-text-secondary: #94a3b8;
+
+  --color-border: #334155;
+}
+
+/* ============================================================
+   GLOBAL
+============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: "Inter", sans-serif;
+  transition: background-color .25s ease, color .25s ease;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Scroll minimal */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}

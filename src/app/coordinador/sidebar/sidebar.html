@@ -1,0 +1,21 @@
+<nav class="sidebar" [class.open]="opened">
+
+  <!-- Botón para cerrar (solo visible cuando está abierto) -->
+  <div class="sidebar-close">
+    <button mat-icon-button (click)="close.emit()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-nav-list class="menu-list">
+
+    @for (r of routes; track r.path) {
+      <a mat-list-item [routerLink]="r.path" routerLinkActive="active">
+        <mat-icon matListIcon>{{ r.icon }}</mat-icon>
+        <span>{{ r.label }}</span>
+      </a>
+    }
+
+  </mat-nav-list>
+
+</nav>

@@ -1,0 +1,30 @@
+@use '@angular/material' as mat;
+
+/* Light theme */
+$light-theme: mat.define-theme((
+  color: (
+    primary: mat.$indigo-palette,
+    tertiary: mat.$blue-palette
+  ),
+  typography: mat.define-typography-config(),
+  density: 0
+));
+
+/* Dark theme */
+$dark-theme: mat.define-theme((
+  color: (
+    primary: mat.$blue-palette,
+    tertiary: mat.$indigo-palette,
+    theme-type: dark
+  ),
+  typography: mat.define-typography-config(),
+  density: 0
+));
+
+/* Host classes */
+.light-theme {
+  @include mat.all-component-themes($light-theme);
+}
+.dark-theme {
+  @include mat.all-component-themes($dark-theme);
+}

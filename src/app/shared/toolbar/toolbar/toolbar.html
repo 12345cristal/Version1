@@ -1,0 +1,42 @@
+<header class="toolbar">
+
+  <!-- IZQUIERDA -->
+  <div class="left">
+    <!-- Botón hamburguesa -->
+    <button mat-icon-button (click)="toggleSidebar.emit()">
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <!-- Logo -->
+    <img class="logo" src="assets/autismo_mochis.png" alt="logo">
+
+    <span class="title">Autismo Mochis</span>
+  </div>
+
+  <!-- DERECHA -->
+  <div class="right">
+
+    <!-- Notificaciones -->
+    <button mat-icon-button>
+      <mat-icon>notifications</mat-icon>
+    </button>
+
+    <!-- Cambiar tema -->
+    <button mat-icon-button (click)="toggleTheme()">
+      <mat-icon>{{ theme === 'dark' ? 'light_mode' : 'dark_mode' }}</mat-icon>
+    </button>
+
+    <!-- Perfil -->
+    <button mat-button [matMenuTriggerFor]="menu">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="irPerfil()">Perfil</button>
+      <button mat-menu-item (click)="irConfig()">Configuración</button>
+      <button mat-menu-item (click)="logout()">Cerrar sesión</button>
+    </mat-menu>
+
+  </div>
+
+</header>

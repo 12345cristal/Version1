@@ -1,0 +1,14 @@
+.main-content {
+  margin-left: 0;
+  transition: margin-left .25s ease;
+
+  &.shift {
+    margin-left: 260px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content.shift {
+    margin-left: 220px;
+  }
+}
