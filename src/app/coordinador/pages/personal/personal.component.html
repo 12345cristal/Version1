@@ -1,0 +1,136 @@
+<div class="personal-wrapper">
+
+  <!-- ========================================================= -->
+  <!-- 🔹 HEADER SUPERIOR                                         -->
+  <!-- ========================================================= -->
+  <header class="page-header">
+
+    <div class="page-title">
+      <div class="page-title-row">
+        <h1>Gestión de Personal</h1>
+      </div>
+      <p class="page-subtitle">
+        Administra el equipo terapéutico y personal del centro.
+      </p>
+    </div>
+
+    <button class="btn-new" (click)="openAddForm()">
+      <mat-icon>person_add</mat-icon>
+      <span>Agregar personal</span>
+    </button>
+
+  </header>
+
+
+  <!-- ========================================================= -->
+  <!-- 🔹 TARJETAS DE ESTADÍSTICAS                                -->
+  <!-- ========================================================= -->
+  <section class="stats-row">
+
+    <article class="stat-card total">
+      <div class="stat-icon"><mat-icon>supervisor_account</mat-icon></div>
+      <div class="stat-info">
+        <span class="stat-label">Total personal</span>
+        <span class="stat-value">{{ totalPersonal }}</span>
+      </div>
+    </article>
+
+    <article class="stat-card terapeutas">
+      <div class="stat-icon"><mat-icon>psychology</mat-icon></div>
+      <div class="stat-info">
+        <span class="stat-label">Terapeutas</span>
+        <span class="stat-value">{{ totalTerapeutas }}</span>
+      </div>
+    </article>
+
+    <article class="stat-card activos">
+      <div class="stat-icon"><mat-icon>task_alt</mat-icon></div>
+      <div class="stat-info">
+        <span class="stat-label">Personal activo</span>
+        <span class="stat-value">{{ totalActivos }}</span>
+      </div>
+    </article>
+
+    <article class="stat-card rating">
+      <div class="stat-icon"><mat-icon>star</mat-icon></div>
+      <div class="stat-info">
+        <span class="stat-label">Calificación promedio</span>
+        <span class="stat-value">
+          @if (calificacionPromedio !== null) {
+            {{ calificacionPromedio | number:'1.1-1' }}
+          } @else {
+            —
+          }
+        </span>
+      </div>
+    </article>
+
+  </section>
+
+
+
+  <!-- ========================================================= -->
+  <!-- 🔹 FILTROS (SEARCH + ROL + ESTADO en una sola línea)       -->
+  <!-- ========================================================= -->
+  <section class="filters-bar">
+
+    <!-- 🔍 BUSCADOR -->
+    <mat-form-field class="search-field" appearance="outline">
+      <mat-icon matPrefix>search</mat-icon>
+      <input
+        matInput
+        placeholder="Buscar por nombre o especialidad…"
+        [value]="search"
+        (input)="onSearch($any($event.target).value)" />
+    </mat-form-field>
+
+    <!-- 🔽 ROL -->
+    <mat-form-field class="filter-field" appearance="outline">
+      <mat-label>Rol</mat-label>
+      <mat-select
+        [value]="selectedRole"
+        (selectionChange)="onRoleSelect($event.value)">
+        <mat-option value="">Todos los roles</mat-option>
+        @for (r of roles; track r) {
+          <mat-option [value]="r">{{ r }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <!-- 🔽 ESTADO -->
+    <mat-form-field class="filter-field" appearance="outline">
+      <mat-label>Estado</mat-label>
+      <mat-select
+        [value]="selectedEstado"
+        (selectionChange)="onEstadoSelect($event.value)">
+        <mat-option value="Todos">Todos</mat-option>
+        <mat-option value="Activo">Activos</mat-option>
+        <mat-option value="Inactivo">Inactivos</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </section>
+
+
+
+  <!-- ========================================================= -->
+  <!-- 🔹 VIEW SWITCH (Tarjetas / Tabla / Horarios)               -->
+  <!-- ========================================================= -->
+  <div class="view-switch-row">
+    <button class="view-chip" [class.active]="view === 'cards'" (click)="setView('cards')">
+      <mat-icon>dashboard</mat-icon>
+      <span>Tarjetas</span>
+    </button>
+
+    <button class="view-chip" [class.active]="view === 'table'" (click)="setView('table')">
+      <mat-icon>table_chart</mat-icon>
+      <span>Tabla</span>
+    </button>
+
+    <button class="view-chip" [class.active]="view === 'horarios'" (click)="setView('horarios')">
+      <mat-icon>calendar_month</mat-icon>
+      <span>Horarios</span>
+    </button>
+  </div>
+
+</div>

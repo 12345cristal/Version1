@@ -1,0 +1,152 @@
+<div class="editar-wrapper" *ngIf="!cargando; else loading">
+
+  <h2 class="titulo">
+    <mat-icon>badge</mat-icon>
+    Editar Personal
+  </h2>
+
+  <p class="subtitulo">Modifica la información profesional, documentos y domicilio.</p>
+
+  <mat-tab-group class="tabs">
+
+    <!-- ========================= -->
+    <!-- TAB: Datos generales -->
+    <!-- ========================= -->
+    <mat-tab label="Datos generales">
+      <mat-card class="card">
+
+        <form [formGroup]="formDatos" class="form">
+
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre completo</mat-label>
+            <input matInput formControlName="nombre_completo">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Correo electrónico</mat-label>
+            <input matInput formControlName="correo_personal">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Teléfono</mat-label>
+            <input matInput formControlName="telefono_personal">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Rol</mat-label>
+            <input matInput formControlName="rol">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Especialidades</mat-label>
+            <input matInput formControlName="especialidades">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Fecha de nacimiento</mat-label>
+            <input matInput type="date" formControlName="fecha_nacimiento">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Grado académico</mat-label>
+            <input matInput formControlName="grado_academico">
+          </mat-form-field>
+
+          <button mat-flat-button color="primary" (click)="guardarDatos()">
+            Guardar cambios
+          </button>
+
+        </form>
+
+      </mat-card>
+    </mat-tab>
+
+    <!-- ========================= -->
+    <!-- TAB: Domicilio -->
+    <!-- ========================= -->
+    <mat-tab label="Domicilio">
+      <mat-card class="card">
+
+        <form [formGroup]="formDomicilio" class="form">
+
+          <mat-form-field appearance="outline">
+            <mat-label>Calle</mat-label>
+            <input matInput formControlName="domicilio_calle">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Colonia</mat-label>
+            <input matInput formControlName="domicilio_colonia">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Código postal</mat-label>
+            <input matInput formControlName="domicilio_cp">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Municipio</mat-label>
+            <input matInput formControlName="domicilio_municipio">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Estado</mat-label>
+            <input matInput formControlName="domicilio_estado">
+          </mat-form-field>
+
+          <button mat-flat-button color="primary" (click)="guardarDomicilio()">
+            Guardar domicilio
+          </button>
+
+        </form>
+
+      </mat-card>
+    </mat-tab>
+
+    <!-- ========================= -->
+    <!-- TAB: Documentos -->
+    <!-- ========================= -->
+    <mat-tab label="Documentos">
+      <mat-card class="card">
+
+        <form [formGroup]="formDocs" class="form">
+
+          <mat-form-field appearance="outline">
+            <mat-label>RFC</mat-label>
+            <input matInput formControlName="rfc">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>CURP</mat-label>
+            <input matInput formControlName="curp">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>INE</mat-label>
+            <input matInput formControlName="ine">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Experiencia</mat-label>
+            <textarea matInput formControlName="experiencia"></textarea>
+          </mat-form-field>
+
+          <button mat-flat-button color="primary" (click)="guardarDocs()">
+            Guardar documentos
+          </button>
+
+        </form>
+
+      </mat-card>
+    </mat-tab>
+
+  </mat-tab-group>
+
+</div>
+
+<ng-template #loading>
+  <div class="loading">
+    <mat-icon>sync</mat-icon>
+    Cargando información…
+  </div>
+</ng-template>

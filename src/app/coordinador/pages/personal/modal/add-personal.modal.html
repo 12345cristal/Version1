@@ -1,0 +1,60 @@
+<div class="modal-card">
+
+  <div class="modal-header">
+    <div>
+      <h2 class="modal-title">Agregar personal</h2>
+      <p class="modal-subtitle">
+        Registra los datos básicos del terapeuta o colaborador.
+      </p>
+    </div>
+  </div>
+
+  <form [formGroup]="form" class="modal-form">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre completo*</mat-label>
+      <input matInput formControlName="nombre_completo" />
+      @if (form.get('nombre_completo')?.invalid && form.get('nombre_completo')?.touched) {
+        <mat-error>El nombre es obligatorio.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Correo electrónico*</mat-label>
+      <input matInput formControlName="correo_personal" type="email" />
+      @if (form.get('correo_personal')?.invalid && form.get('correo_personal')?.touched) {
+        <mat-error>Ingresa un correo válido.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Teléfono*</mat-label>
+      <input matInput formControlName="telefono_personal" />
+      @if (form.get('telefono_personal')?.invalid && form.get('telefono_personal')?.touched) {
+        <mat-error>El teléfono es obligatorio.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Rol en el centro*</mat-label>
+      <input matInput formControlName="rol" placeholder="Ej. Terapeuta de lenguaje" />
+      @if (form.get('rol')?.invalid && form.get('rol')?.touched) {
+        <mat-error>El rol es obligatorio.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Especialidades (separadas por coma)</mat-label>
+      <input matInput formControlName="especialidades" placeholder="TEA, Lenguaje, Conducta" />
+    </mat-form-field>
+
+    <div class="modal-actions">
+      <button mat-button type="button" (click)="cerrar()">Cancelar</button>
+      <button mat-flat-button color="primary" type="button" (click)="guardar()" [disabled]="form.invalid">
+        Guardar
+      </button>
+    </div>
+
+  </form>
+
+</div>

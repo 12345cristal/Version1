@@ -1,36 +1,42 @@
 /* =====================================
-   LAYOUT GENERAL – SIN SCROLL INNECESARIO
+   LAYOUT GENERAL – CORREGIDO
+   ✔ Permite renderizar las páginas
+   ✔ Sidebar + toolbar totalmente funcionales
+   ✔ Sin scroll raro ni páginas en blanco
 ===================================== */
 
-/* El body no debe generar scroll nunca */
-body, html {
+/* El body y html NO deben bloquear la expansión del contenido */
+html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow: hidden; /* ⭐ Control TOTAL del scroll */
+  overflow-x: hidden;  /* evita scroll horizontal */
+  overflow-y: auto;    /* permite crecer páginas internas */
 }
 
-/* El layout entero se comporta como app */
+/* El layout general */
 :host {
   display: flex;
   flex-direction: column;
-  height: 100vh; /* ⭐ Siempre el alto exacto de pantalla */
-  overflow: hidden;
+  height: 100vh;
+  overflow: hidden; /* solo el host controla overflow general */
 }
 
 /* =====================================
-   MAIN CONTAINER – SOLO SCROLL SI HAY CONTENIDO
+   MAIN CONTAINER – donde se inyecta el router-outlet
 ===================================== */
+
 .main-container {
-  flex: 1;                 /* ⭐ Ocupa todo lo que sobra */
-  overflow-y: auto;        /* ⭐ Scroll solo si se necesita */
+  flex: 1;                    
+  overflow-y: auto;            /* ⭐ scroll si el contenido lo requiere */
   overflow-x: hidden;
   background: var(--color-bg);
-  transition: margin-left .25s ease;
-  padding-top: 64px;       /* Altura del toolbar */
+  transition: margin-left 0.25s ease;
+  padding-top: 64px;           /* altura del toolbar */
+  position: relative;
 }
 
-/* Cuando sidebar está abierto */
+/* Sidebar abierto */
 .main-container.shift {
   margin-left: 250px;
 }
@@ -41,9 +47,13 @@ body, html {
   }
 }
 
-/* Para que las páginas no generen scroll solas */
+/* =====================================
+   PAGE WRAPPER – garantiza espacio interno
+===================================== */
 .page-wrapper {
   padding: 2rem;
-  min-height: calc(100vh - 64px);
+  min-height: calc(100vh - 64px); /* evita colapso vertical */
   box-sizing: border-box;
+  width: 100%;
+  display: block;
 }

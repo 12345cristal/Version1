@@ -1,0 +1,717 @@
+/* src/app/coordinador/pages/citas/citas.scss */
+
+@use "sass:color";
+
+/* PALETA BASE (puedes ajustarla a tu sistema) */
+$blue-primary: #2563eb;
+$blue-light: #60a5fa;
+$blue-soft: #eef4ff;
+$yellow-soft: #fff7e5;
+$green: #16a34a;
+$gray-bg: #f8fafc;
+$gray-card: #ffffff;
+$gray-border: #e2e8f0;
+$text-primary: #0f172a;
+$text-secondary: #64748b;
+$text-muted: #94a3b8;
+
+/* ROOT PAGE */
+.citas-page {
+  min-height: calc(100vh - 64px);
+  padding: 1.5rem 2rem 2rem;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+  background: radial-gradient(circle at top left, #fdf2ff 0, #f8fafc 38%, #eef2ff 100%);
+
+  &.dark-theme {
+    background: radial-gradient(circle at top left, #020617 0, #020617 40%, #0b1120 100%);
+    color: #e5e7eb;
+
+    .today-card,
+    .calendar-card,
+    .citas-list-card,
+    .modal {
+      background: #020617;
+      border-color: #1f2937;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.7);
+    }
+
+    .page-header h1,
+    .cita-card h3 {
+      color: #e5e7eb;
+    }
+
+    .page-header p,
+    .cita-subtitle,
+    .cita-meta span,
+    .cita-notes {
+      color: #9ca3af;
+    }
+
+    .calendar-weekdays span {
+      color: #9ca3af;
+    }
+
+    .day-cell.other-month {
+      color: #4b5563;
+    }
+
+    .day-cell.selected {
+      background: rgba($blue-primary, 0.22);
+      border-color: rgba($blue-primary, 0.7);
+    }
+
+    .filter-btn,
+    .filter-menu,
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+      background: #020617;
+      border-color: #1f2937;
+      color: #e5e7eb;
+    }
+  }
+}
+
+/* HEADER */
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+
+  h1 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: $text-primary;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.25rem;
+  }
+
+  p {
+    margin: 0;
+    color: $text-secondary;
+    font-size: 0.9rem;
+  }
+}
+
+/* BUTTONS BASE */
+.primary-btn,
+.outline-btn,
+.danger-btn,
+.icon-btn,
+.link-btn {
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.55rem 1.1rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.15s ease;
+  background: transparent;
+}
+
+.primary-btn {
+  background: linear-gradient(135deg, $blue-primary, color.scale($blue-primary, $lightness: -5%));
+  color: white;
+  box-shadow: 0 10px 22px rgba($blue-primary, 0.45);
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 28px rgba($blue-primary, 0.5);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    box-shadow: none;
+    cursor: default;
+  }
+}
+
+.outline-btn {
+  border-color: $gray-border;
+  background: white;
+  color: $text-secondary;
+
+  &:hover {
+    border-color: $blue-light;
+    color: $blue-primary;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+  }
+}
+
+.danger-btn {
+  background: #fee2e2;
+  color: #b91c1c;
+  border-color: #fecaca;
+
+  &:hover {
+    background: #fecaca;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+}
+
+.icon-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: 999px;
+  border: 1px solid $gray-border;
+  background: white;
+  display: inline-grid;
+  place-items: center;
+
+  &.ghost {
+    background: transparent;
+    border-color: transparent;
+
+    &:hover {
+      background: rgba(15, 23, 42, 0.06);
+    }
+  }
+
+  &:hover {
+    background: #f3f4ff;
+  }
+}
+
+.link-btn {
+  padding-inline: 0;
+  border: none;
+  border-radius: 0;
+  color: $blue-primary;
+  background: transparent;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+/* TODAY CARD */
+.today-card {
+  background: $gray-card;
+  border-radius: 1.25rem;
+  padding: 1rem 1.2rem;
+  border: 1px solid rgba($blue-primary, 0.05);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.04);
+  margin-bottom: 1.5rem;
+
+  .today-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.7rem;
+
+    h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: $text-primary;
+    }
+
+    .today-date {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.85rem;
+      color: $text-secondary;
+      padding: 0.35rem 0.7rem;
+      background: $blue-soft;
+      border-radius: 999px;
+    }
+  }
+}
+
+/* EMPTY STATE */
+.empty-state {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9rem 0.6rem;
+  border-radius: 1rem;
+  background: $blue-soft;
+  color: $text-secondary;
+  font-size: 0.85rem;
+
+  &.large {
+    padding: 1.4rem 1.1rem;
+    justify-content: center;
+    text-align: left;
+  }
+
+  p {
+    margin: 0 0 0.2rem;
+    font-weight: 500;
+    color: $text-primary;
+  }
+
+  small {
+    font-size: 0.8rem;
+    color: $text-secondary;
+  }
+}
+
+.today-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+/* LAYOUT PRINCIPAL */
+.main-layout {
+  display: grid;
+  grid-template-columns: minmax(260px, 320px) minmax(0, 1fr);
+  gap: 1.2rem;
+}
+
+/* CALENDARIO */
+.calendar-card {
+  background: $gray-card;
+  border-radius: 1.25rem;
+  padding: 1rem 1rem 0.8rem;
+  border: 1px solid $gray-border;
+  box-shadow: 0 18px 42px rgba(15, 23, 42, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .month-title {
+    font-weight: 600;
+    color: $text-primary;
+    font-size: 0.95rem;
+    text-transform: capitalize;
+  }
+}
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  font-size: 0.7rem;
+  text-align: center;
+  color: $text-muted;
+
+  span {
+    padding-block: 0.15rem;
+  }
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.25rem;
+}
+
+.day-cell {
+  position: relative;
+  border: none;
+  background: transparent;
+  border-radius: 0.9rem;
+  min-height: 2.4rem;
+  padding: 0.15rem 0.15rem 0.1rem;
+  font-size: 0.78rem;
+  color: $text-primary;
+  cursor: pointer;
+  transition: all 0.12s ease;
+
+  .day-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 999px;
+  }
+
+  .day-dot {
+    position: absolute;
+    bottom: 0.22rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: $blue-primary;
+  }
+
+  &.other-month {
+    color: $text-muted;
+  }
+
+  &.today .day-number {
+    border: 1px solid $blue-primary;
+  }
+
+  &.selected {
+    background: rgba($blue-primary, 0.08);
+
+    .day-number {
+      background: $blue-primary;
+      color: white;
+    }
+  }
+
+  &:hover:not(.selected) {
+    background: rgba($blue-primary, 0.06);
+  }
+}
+
+.calendar-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* LISTA DE CITAS */
+.citas-list-card {
+  background: $gray-card;
+  border-radius: 1.25rem;
+  padding: 1rem 1.2rem 1rem;
+  border: 1px solid $gray-border;
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.06);
+  display: flex;
+  flex-direction: column;
+  max-height: 540px;
+}
+
+.list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.8rem;
+
+  h2 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: $text-primary;
+  }
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  .filter-label {
+    font-size: 0.8rem;
+    color: $text-secondary;
+  }
+
+  .filter-select {
+    position: relative;
+
+    &:hover .filter-menu {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0.1rem);
+    }
+  }
+
+  .filter-btn {
+    @extend .outline-btn;
+    padding-inline: 0.9rem;
+    font-size: 0.82rem;
+  }
+
+  .filter-menu {
+    position: absolute;
+    top: 120%;
+    right: 0;
+    min-width: 150px;
+    background: white;
+    border-radius: 0.8rem;
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
+    padding: 0.25rem 0;
+    list-style: none;
+    margin: 0;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(0.3rem);
+    transition: all 0.13s ease;
+
+    li {
+      padding: 0.45rem 0.8rem;
+      font-size: 0.82rem;
+      color: $text-secondary;
+      cursor: pointer;
+
+      &:hover {
+        background: rgba($blue-primary, 0.05);
+      }
+
+      &.active {
+        color: $blue-primary;
+        font-weight: 600;
+        background: rgba($blue-primary, 0.07);
+      }
+    }
+  }
+}
+
+.citas-scroll {
+  margin-top: 0.4rem;
+  overflow-y: auto;
+  padding-right: 0.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.6);
+    border-radius: 999px;
+  }
+}
+
+/* TARJETA DE CITA */
+.cita-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.9rem;
+  padding: 0.85rem 0.9rem;
+  border-radius: 1rem;
+  background: $gray-bg;
+  border: 1px solid rgba($blue-primary, 0.06);
+
+  &.mini {
+    grid-template-columns: minmax(0, 1fr) auto;
+    background: $yellow-soft;
+  }
+}
+
+.cita-icon {
+  display: flex;
+  align-items: flex-start;
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    background: $blue-soft;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: $blue-primary;
+  }
+}
+
+.cita-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.cita-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+
+  h3 {
+    margin: 0;
+    font-size: 0.98rem;
+    font-weight: 600;
+    color: $text-primary;
+  }
+}
+
+.cita-subtitle {
+  margin: 0.1rem 0 0;
+  font-size: 0.84rem;
+  color: $text-secondary;
+}
+
+.cita-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  font-size: 0.8rem;
+  color: $text-secondary;
+
+  span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.32rem;
+  }
+}
+
+.cita-notes {
+  font-size: 0.8rem;
+  margin: 0.1rem 0 0;
+
+  &.muted {
+    color: $text-muted;
+  }
+}
+
+.cita-actions {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+/* BADGES ESTADO */
+.badge {
+  align-self: flex-start;
+  border-radius: 999px;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: capitalize;
+
+  &.programada {
+    background: rgba($blue-primary, 0.08);
+    color: $blue-primary;
+  }
+
+  &.pendiente {
+    background: #fef9c3;
+    color: #854d0e;
+  }
+
+  &.completada {
+    background: #dcfce7;
+    color: #15803d;
+  }
+
+  &.cancelada {
+    background: #fee2e2;
+    color: #b91c1c;
+  }
+}
+
+/* MODAL */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(4px);
+  display: grid;
+  place-items: center;
+  z-index: 40;
+}
+
+.modal {
+  width: min(540px, 100% - 2rem);
+  background: $gray-card;
+  border-radius: 1.5rem;
+  border: 1px solid rgba($blue-primary, 0.15);
+  box-shadow: 0 22px 55px rgba(15, 23, 42, 0.35);
+  padding: 1.1rem 1.3rem 1rem;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.7rem;
+
+  h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: $green;
+  }
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.7rem;
+}
+
+/* FORMULARIO */
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.7rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+
+  label {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: $text-secondary;
+
+    span {
+      color: #ef4444;
+    }
+  }
+
+  input,
+  select,
+  textarea {
+    border-radius: 0.85rem;
+    border: 1px solid $gray-border;
+    padding: 0.45rem 0.65rem;
+    font-size: 0.85rem;
+    outline: none;
+    background: #f9fafb;
+    color: $text-primary;
+    transition: all 0.12s ease;
+
+    &:focus {
+      border-color: $blue-primary;
+      box-shadow: 0 0 0 1px rgba($blue-primary, 0.2);
+      background: white;
+    }
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 60px;
+  }
+}
+
+/* RESPONSIVE */
+@media (max-width: 960px) {
+  .citas-page {
+    padding: 1rem;
+  }
+
+  .main-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .citas-list-card {
+    max-height: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .form-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

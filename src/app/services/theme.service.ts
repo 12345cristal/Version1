@@ -18,6 +18,11 @@ export class ThemeService {
     }
   }
 
+  /** ⭐ GETTER PÚBLICO QUE SOLUCIONA TU ERROR */
+  get currentTheme(): 'light' | 'dark' {
+    return this.themeSubject.value;
+  }
+
   toggleTheme() {
     const current = this.themeSubject.value;
     current === 'light' ? this.setDark() : this.setLight();

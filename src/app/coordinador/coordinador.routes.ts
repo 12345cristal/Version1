@@ -1,20 +1,19 @@
 import { Routes } from '@angular/router';
-import { Inicio } from './pages/inicio/inicio/inicio';
-import { Citas } from './pages/citas/citas/citas';
-import { Personal } from './pages/personal/personal/personal';
-import { Ninos} from './pages/ninos/ninos/ninos';
-import { Reportes } from './pages/reportes/reportes/reportes';
-import { Usuarios } from './pages/usuarios/usuarios/usuarios';
-import { Perfil } from './pages/perfil/perfil/perfil';
-import { Configuracion } from './pages/configuracion/configuracion/configuracion';
-import { Horarios } from './pages/horarios/horarios/horarios';
-import { Terapias } from './pages/terapias/terapias/terapias';
-import { Asistencia } from './pages/asistencia/asistencia/asistencia';
-import { Expedientes } from './pages/expedientes/expedientes/expedientes';
-import { Mensajes } from './pages/mensajes/mensajes/mensajes';
-import { ReportesClinicos } from './pages/reportes-clinicos/reportes-clinicos/reportes-clinicos';
+import { Inicio } from './pages/inicio/inicio';
+import { PersonalComponent } from './pages/personal/personal.component';
+import { Ninos} from './pages/ninos/ninos';
+import { Reportes } from './pages/reportes/reportes';
+import { Usuarios } from './pages/usuarios/usuarios';
+import { Perfil } from './pages/perfil/perfil';
+import { Configuracion } from './pages/configuracion/configuracion';
+import { Horarios } from './pages/horarios/horarios';
+import { Terapias } from './pages/terapias/terapias';
+import { Asistencia } from './pages/asistencia/asistencia';
+import { Expedientes } from './pages/expedientes/expedientes';
+import { Mensajes } from './pages/mensajes/mensajes';
+import { ReportesClinicos } from './pages/reportes-clinicos/reportes-clinicos';
 import { LayoutComponent } from './layout/layout';
-
+import { CitasComponent } from './pages/citas/citas';
 
 export const COORDINADOR_ROUTES: Routes = [
   {
@@ -22,8 +21,8 @@ export const COORDINADOR_ROUTES: Routes = [
     component: LayoutComponent,
     children: [
       { path: 'inicio', component: Inicio },
-      { path: 'citas', component: Citas },
-      { path: 'personal', component: Personal },
+      { path: 'citas', component: CitasComponent },
+      { path: 'personal', component: PersonalComponent },
       { path: 'ninos', component: Ninos },
       { path: 'reportes', component: Reportes },
       { path: 'usuarios', component: Usuarios },

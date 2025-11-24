@@ -24,7 +24,50 @@ $dark-theme: mat.define-theme((
 /* Host classes */
 .light-theme {
   @include mat.all-component-themes($light-theme);
+
+  /* ====================== VARIABLES CUSTOM LIGHT ====================== */
+  --surface: #ffffff;
+  --surface-alt: #f0f4ff;
+  --bg: #f8fafc;
+
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+
+  --border: #e2e8f0;
+
+  /* ⭐ VIEW SWITCH */
+  --view-active-bg: #e6eeff;        /* Azul suave */
+  --view-active-text: #1e3a8a;
+  --view-active-shadow: 0 8px 20px rgba(59, 130, 246, 0.25);
+
+  /* Badges */
+  --badge-active-bg: #dcfce7;
+  --badge-active-text: #166534;
+  --badge-inactive-bg: #fee2e2;
+  --badge-inactive-text: #991b1b;
 }
+
 .dark-theme {
   @include mat.all-component-themes($dark-theme);
+
+  /* ====================== VARIABLES CUSTOM DARK ====================== */
+  --surface: #1e293b;
+  --surface-alt: #273449;
+  --bg: #0f172a;
+
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+
+  --border: #334155;
+
+  /* ⭐ VIEW SWITCH */
+  --view-active-bg: #1e40af;
+  --view-active-text: #ffffff;
+  --view-active-shadow: 0 8px 22px rgba(37, 99, 235, 0.45);
+
+  /* Badges */
+  --badge-active-bg: rgba(16, 185, 129, 0.28);
+  --badge-active-text: #34d399;
+  --badge-inactive-bg: rgba(239, 68, 68, 0.18);
+  --badge-inactive-text: #f87171;
 }

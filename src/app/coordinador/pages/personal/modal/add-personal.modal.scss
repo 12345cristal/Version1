@@ -1,0 +1,86 @@
+:host {
+  display: block;
+  color: var(--text-primary);
+}
+
+/* ====== TARJETA DEL MODAL ====== */
+.modal-card {
+  background: var(--surface);
+  color: var(--text-primary);
+  padding: 1.3rem 1.3rem 1rem;
+  border-radius: 14px;
+  min-width: 300px;
+  max-width: 380px; /* 🔥 Más compacto */
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.18);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: all 0.2s ease;
+}
+
+/* ====== HEADER ====== */
+.modal-header {
+  display: flex;
+  align-items: flex-start;
+}
+
+.modal-title {
+  margin: 0;
+  font-size: 1.3rem; /* 🔥 más compacto */
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.modal-subtitle {
+  margin: 3px 0 0;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+/* ====== FORMULARIO ====== */
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem; /* 🔥 menos espacio */
+
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+/* ====== ACCIONES ====== */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.7rem;
+  margin-top: 0.5rem;
+  padding-top: 0.7rem;
+  border-top: 1px solid var(--border);
+
+  button[mat-button],
+  button[mat-flat-button] {
+    padding: 0.45rem 1rem; /* 🔥 botones smaller */
+    border-radius: 999px;
+    font-size: 0.85rem;
+  }
+
+  button[mat-flat-button] {
+    font-weight: 600;
+  }
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 480px) {
+  .modal-card {
+    padding: 1rem;
+    width: 92%; /* 🔥 Se adapta muuucho mejor */
+    max-width: none;
+    min-width: 0;
+    border-radius: 12px;
+  }
+
+  .modal-title {
+    font-size: 1.2rem;
+  }
+}

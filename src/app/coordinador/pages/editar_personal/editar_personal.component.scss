@@ -1,0 +1,51 @@
+.editar-wrapper {
+  padding: 1.5rem;
+  background: var(--bg);
+  color: var(--text-primary);
+}
+
+.titulo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.subtitulo {
+  color: var(--text-secondary);
+  margin-bottom: 1.2rem;
+}
+
+.tabs {
+  margin-top: 1rem;
+}
+
+.card {
+  background: var(--surface);
+  border-radius: 14px;
+  padding: 1.4rem;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  margin: 1rem 0;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+
+  button {
+    grid-column: 1 / -1;
+    margin-top: 0.5rem;
+  }
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  font-size: 1.2rem;
+}

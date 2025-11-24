@@ -1,0 +1,153 @@
+<div class="citas-page" [class.dark]="theme === 'dark'">
+
+  <!-- ENCABEZADO -->
+  <mat-card class="header-card">
+    <div class="header-row">
+      <div>
+<h1 style="color:red;font-size:40px;">PROBANDO CARGA</h1>
+        <p>Administra las citas de observación y evaluación.</p>
+      </div>
+
+      <button mat-flat-button color="primary" (click)="abrirNueva()">
+        <mat-icon>add</mat-icon>
+        Nueva Cita
+      </button>
+    </div>
+  </mat-card>
+
+  <!-- LISTA DE CITAS -->
+  <mat-card class="citas-list">
+
+    <h2>Mis Citas</h2>
+
+    @if (citas().length === 0) {
+      <div class="empty">
+        <mat-icon>event_busy</mat-icon>
+        No tienes citas registradas.
+      </div>
+    }
+
+    @for (cita of citas(); track cita.id_cita) {
+
+      <mat-card class="cita-item">
+        <div class="cita-flex">
+
+          <div class="cita-info">
+            <h3>{{ cita.nino_nombre }}</h3>
+            <p class="subtitle">
+              {{ cita.tipo_cita === 'OBSERVACION' ? 'Observación' : 'Evaluación' }}
+              · {{ cita.servicio }}
+            </p>
+
+            <p class="meta">
+              <mat-icon>calendar_today</mat-icon>
+              {{ cita.fecha }} — {{ cita.hora }}
+            </p>
+
+            @if (cita.lugar) {
+              <p class="meta">
+                <mat-icon>place</mat-icon>
+                {{ cita.lugar }}
+              </p>
+            }
+          </div>
+
+          <div class="acciones">
+            <button mat-stroked-button color="primary" (click)="abrirEdicion(cita)">
+              <mat-icon>edit</mat-icon>
+              Editar
+            </button>
+
+            <button mat-stroked-button color="warn" (click)="cancelar(cita)">
+              <mat-icon>delete</mat-icon>
+              Cancelar
+            </button>
+          </div>
+
+        </div>
+      </mat-card>
+
+    }
+
+  </mat-card>
+
+  <!-- MODAL -->
+  @if (modalVisible()) {
+
+    <div class="modal-overlay">
+      <div class="modal">
+
+        <h2>{{ editando() ? 'Editar Cita' : 'Nueva Cita' }}</h2>
+
+        <form [formGroup]="citaForm" class="modal-form">
+
+          <mat-form-field appearance="outline">
+            <mat-label>Fecha</mat-label>
+            <input matInput type="date" formControlName="fecha">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Hora</mat-label>
+            <input matInput type="time" formControlName="hora">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre del niño</mat-label>
+            <input matInput formControlName="nino_nombre">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Diagnóstico</mat-label>
+            <input matInput formControlName="diagnostico">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Tipo de cita</mat-label>
+            <mat-select formControlName="tipo_cita">
+              <mat-option value="OBSERVACION">Observación</mat-option>
+              <mat-option value="EVALUACION">Evaluación</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Motivo</mat-label>
+            <textarea matInput formControlName="motivo"></textarea>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Servicio</mat-label>
+            <mat-select formControlName="servicio">
+              <mat-option value="Valoración Inicial">Valoración Inicial</mat-option>
+              <mat-option value="Revisión de Diagnóstico">Revisión de Diagnóstico</mat-option>
+              <mat-option value="Seguimiento Terapéutico">Seguimiento Terapéutico</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Notas</mat-label>
+            <textarea matInput formControlName="notas"></textarea>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Lugar</mat-label>
+            <input matInput formControlName="lugar">
+          </mat-form-field>
+
+        </form>
+
+        <div class="modal-actions">
+          <button mat-stroked-button (click)="cerrarModal()">Cancelar</button>
+
+          <button mat-flat-button color="primary"
+                  (click)="guardar()"
+                  [disabled]="citaForm.invalid">
+            Guardar
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  }
+
+</div>
