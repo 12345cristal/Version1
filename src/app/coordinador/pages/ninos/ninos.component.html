@@ -1,0 +1,207 @@
+<div class="ninos-wrapper">
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="page-header">
+    <div>
+      <h1>Niños Beneficiados</h1>
+      <p class="subtitle">
+        Gestiona los registros de todos los niños del centro
+      </p>
+    </div>
+
+    <div class="header-actions">
+      <div class="search-box">
+        <mat-icon>search</mat-icon>
+        <input
+          placeholder="Buscar por nombre o tutor…"
+          (input)="buscar($event)" />
+      </div>
+
+      <button
+        mat-raised-button
+        color="primary"
+        class="btn-add"
+        (click)="abrirNuevo()">
+        <mat-icon>add</mat-icon>
+        Agregar Nuevo Niño
+      </button>
+    </div>
+  </header>
+
+  <!-- ===================== TARJETAS RESUMEN ===================== -->
+  <section class="stats-grid">
+
+    <article class="stat-card total">
+      <div class="stat-number">{{ total() }}</div>
+      <div class="stat-label">Total de Niños</div>
+    </article>
+
+    <article class="stat-card activos">
+      <div class="stat-number">{{ activos() }}</div>
+      <div class="stat-label">Activos</div>
+    </article>
+
+    <article class="stat-card nuevos">
+      <div class="stat-number">{{ nuevosMes() }}</div>
+      <div class="stat-label">Nuevos este mes</div>
+    </article>
+
+    <article class="stat-card progreso">
+      <div class="stat-number">{{ progresoPromedio() }}%</div>
+      <div class="stat-label">Progreso Promedio</div>
+    </article>
+
+  </section>
+
+  <!-- ===================== TOGGLE ESTADO ===================== -->
+  <section class="estado-toggle">
+    <button
+      class="chip"
+      [class.active]="!mostrarInactivos()"
+      (click)="verActivos()">
+      Activos
+    </button>
+
+    <button
+      class="chip"
+      [class.active]="mostrarInactivos()"
+      (click)="verInactivos()">
+      Inhabilitados
+    </button>
+  </section>
+
+  <!-- ===================== CARDS LISTA ===================== -->
+  @if (filtrados().length > 0) {
+    <section class="cards-grid">
+
+      @for (n of filtrados(); track n.id) {
+
+        <article class="nino-card">
+
+          <!-- HEADER CARD -->
+          <div class="card-header">
+            <div class="profile">
+              <div class="avatar">
+
+                @if (n.fotoUrl) {
+                  <img [src]="n.fotoUrl" />
+                } @else {
+                  <span>{{ n.nombreCompleto.charAt(0) }}</span>
+                }
+
+              </div>
+
+              <div class="profile-info">
+                <h2>{{ n.nombreCompleto }}</h2>
+                <p class="info-secundaria">
+                  {{ n.edad ?? '—' }} años · {{ n.diagnosticoPrincipal || 'Sin diagnóstico' }}
+                </p>
+
+                <span
+                  class="badge-estado"
+                  [class.activo]="n.estado === 'ACTIVO'">
+                  {{ n.estado === 'ACTIVO' ? 'Activo' : 'Inhabilitado' }}
+                </span>
+              </div>
+            </div>
+
+            <div class="datos-tutor">
+              <div class="row">
+                <span class="label">Padre/Tutor:</span>
+                <span class="value">{{ n.padreTutor || '—' }}</span>
+              </div>
+              <div class="row">
+                <span class="label">Teléfono:</span>
+                <span class="value">{{ n.telefono || '—' }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- BODY CARD -->
+          <div class="card-body">
+
+            <div class="progreso">
+              <div class="progreso-header">
+                <span>Progreso General</span>
+                <span class="porcentaje">{{ n.progresoGeneral || 0 }}%</span>
+              </div>
+
+              <mat-progress-bar
+                mode="determinate"
+                [value]="n.progresoGeneral || 0">
+              </mat-progress-bar>
+            </div>
+
+            @if ((n.terapias ?? []).length > 0) {
+              <div class="terapias">
+                <span class="label">Terapias:</span>
+
+                <mat-chip-listbox>
+                  @for (t of (n.terapias ?? []); track $index) {
+                    <mat-chip>{{ t }}</mat-chip>
+                  }
+                </mat-chip-listbox>
+
+              </div>
+            }
+
+          </div>
+
+          <!-- FOOTER CARD -->
+          <footer class="card-footer">
+
+            <button
+              mat-stroked-button
+              color="primary"
+              (click)="verPerfil(n)">
+              Ver Perfil
+            </button>
+
+            <button
+              mat-flat-button
+              [color]="n.estado === 'ACTIVO' ? 'warn' : 'primary'"
+              (click)="toggleEstado(n)">
+              {{ n.estado === 'ACTIVO' ? 'Dar de baja' : 'Reactivar' }}
+            </button>
+
+            <button
+              mat-flat-button
+              color="primary"
+              class="btn-editar"
+              (click)="editar(n)">
+              Editar
+            </button>
+
+          </footer>
+
+        </article>
+
+      }
+
+    </section>
+
+  } @else {
+
+    <!-- ===================== ESTADO VACÍO ===================== -->
+    <div class="empty-state">
+      <div class="empty-icon">
+        <mat-icon>sentiment_dissatisfied</mat-icon>
+      </div>
+      <h3>Sin registros por ahora</h3>
+      <p>
+        Aún no hay niños en esta vista.
+        Puedes agregar un nuevo beneficiario con el botón
+        <strong>“Agregar Nuevo Niño”</strong>.
+      </p>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="abrirNuevo()">
+        <mat-icon>add</mat-icon>
+        Agregar Niño
+      </button>
+    </div>
+
+  }
+
+</div>

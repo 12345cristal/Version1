@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -8,8 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 
-import { PersonalService } from '../../services/personal.service';
-import { SearchService } from '../../services/search.service';
+import { PersonalService } from '../../../services/personal.service';
+import { SearchService } from '../../../services/search.service';
 import { Personal } from '../../../interfaces/personal/personal.interface';
 import { AddPersonalModal } from './modal/add-personal.modal';
 
@@ -31,19 +31,18 @@ import { AddPersonalModal } from './modal/add-personal.modal';
 })
 export class PersonalComponent {
 
+  @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
+
   form!: FormGroup;
 
-  // ===== Filtros =====
   search = '';
   selectedRole = '';
   selectedEstado: 'Todos' | 'Activo' | 'Inactivo' = 'Todos';
   view: 'cards' | 'table' | 'horarios' = 'cards';
 
-  // ===== Datos =====
   roles: string[] = [];
   personal: Personal[] = [];
 
-  // ===== Estadísticas =====
   totalPersonal = 0;
   totalTerapeutas = 0;
   totalActivos = 0;
@@ -54,7 +53,7 @@ export class PersonalComponent {
     private personalService: PersonalService,
     private searchService: SearchService,
     private dialog: MatDialog
-  ) {}
+  ){}
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -69,15 +68,34 @@ export class PersonalComponent {
     this.loadRoles();
     this.loadPersonal();
 
-    // Ctrl + K
-    this.searchService.search$.subscribe(q => {
-      this.search = q;
-      this.applyFilters();
+    // =====================================================
+    // 🔥 Ctrl + K → Focus + Spotlight REAL
+    // =====================================================
+    this.searchService.trigger$.subscribe(() => {
+      setTimeout(() => {
+
+        const input = this.searchInput?.nativeElement;
+        if (!input) return;
+
+        input.focus();
+
+        // contenedor real de Angular Material
+        const matContainer = input
+          .closest('.mat-mdc-text-field-wrapper')
+          ?.querySelector('.mat-mdc-form-field-flex');
+
+        if (matContainer) {
+          matContainer.classList.add('search-focus-hotkey');
+
+          setTimeout(() => {
+            matContainer.classList.remove('search-focus-hotkey');
+          }, 900);
+        }
+
+      }, 0);
     });
   }
 
-  // =====================================================
-  //           CARGAR ROLES DESDE BACKEND
   // =====================================================
   loadRoles() {
     this.personalService.getRoles().subscribe(res => {
@@ -85,9 +103,6 @@ export class PersonalComponent {
     });
   }
 
-  // =====================================================
-  //           OBTENER PERSONAL + ESTADISTICAS
-  // =====================================================
   loadPersonal() {
     this.personalService.getPersonal().subscribe(res => {
       this.personal = res;
@@ -108,12 +123,9 @@ export class PersonalComponent {
     this.totalPersonal = list.length;
     this.totalActivos = list.filter(p => p.estado === 'Activo').length;
     this.totalTerapeutas = list.filter(p => p.rol?.toLowerCase().includes('terapeuta')).length;
-    this.calificacionPromedio = null; // cuando lo agregues del backend
+    this.calificacionPromedio = null;
   }
 
-  // =====================================================
-  //                 CAMBIAR ESTADO
-  // =====================================================
   toggleEstado(p: Personal) {
     const nuevo = p.estado === 'Activo' ? 'Inactivo' : 'Activo';
     this.personalService.actualizarEstado(p.id_personal, nuevo).subscribe(() => {
@@ -121,9 +133,6 @@ export class PersonalComponent {
     });
   }
 
-  // =====================================================
-  //                 MODAL NUEVO PERSONAL
-  // =====================================================
   openAddForm() {
     const ref = this.dialog.open(AddPersonalModal, {
       width: '480px',
@@ -133,12 +142,11 @@ export class PersonalComponent {
 
     ref.afterClosed().subscribe(data => {
       if (data) {
-        // especialidades -> array
+
         data.especialidades = data.especialidades
           ? data.especialidades.split(',').map((e: string) => e.trim())
           : [];
 
-        // Estado inicial = Activo
         data.estado = 'Activo';
 
         this.personalService.crearPersonal(data).subscribe(() => {
@@ -151,9 +159,6 @@ export class PersonalComponent {
   openDetalles(p: Personal) {}
   openEditar(p: Personal) {}
 
-  // =====================================================
-  //          MÉTODOS QUE FALTABAN (FILTRADO)
-  // =====================================================
   onSearch(query: string) {
     this.search = query;
     this.applyFilters();
@@ -169,9 +174,6 @@ export class PersonalComponent {
     this.applyFilters();
   }
 
-  // =====================================================
-  //                CAMBIO DE VISTA
-  // =====================================================
   setView(view: 'cards' | 'table' | 'horarios') {
     this.view = view;
   }

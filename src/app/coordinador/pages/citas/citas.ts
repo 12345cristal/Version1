@@ -13,8 +13,7 @@ import {
   CitasService,
   Cita,
   CrearActualizarCitaDTO 
-} from '../../../coordinador/services/citas.service';
-
+} from '../../../services/citas.service';
 import { ThemeService } from '../../../services/theme.service';
 
 @Component({

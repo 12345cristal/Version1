@@ -1,0 +1,298 @@
+<div class="modal-wrapper">
+
+  <!-- HEADER -->
+  <header class="modal-header">
+    <div>
+      <h2>{{ titulo }}</h2>
+      <p>Completa la información del niño/a</p>
+    </div>
+
+    <button class="close-btn" type="button" (click)="cerrar()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </header>
+
+  <!-- STEPS NAV -->
+  <nav class="steps-nav">
+    <div class="step" [class.active]="step >= 1">
+      <div class="circle">1</div>
+      <span>Datos personales</span>
+    </div>
+    <div class="divider"></div>
+
+    <div class="step" [class.active]="step >= 2">
+      <div class="circle">2</div>
+      <span>Información médica</span>
+    </div>
+    <div class="divider"></div>
+
+    <div class="step" [class.active]="step >= 3">
+      <div class="circle">3</div>
+      <span>Contacto emergencia</span>
+    </div>
+    <div class="divider"></div>
+
+    <div class="step" [class.active]="step >= 4">
+      <div class="circle">4</div>
+      <span>Documentos</span>
+    </div>
+    <div class="divider"></div>
+
+    <div class="step" [class.active]="step >= 5">
+      <div class="circle">5</div>
+      <span>Preferencias</span>
+    </div>
+  </nav>
+
+  <!-- PROGRESS -->
+  <mat-progress-bar
+    class="steps-bar"
+    mode="determinate"
+    [value]="(step / totalPasos) * 100">
+  </mat-progress-bar>
+
+  <!-- FORM -->
+  <form [formGroup]="formulario" class="steps-content">
+
+    <!-- PASO 1 -->
+    <section class="step-panel" [hidden]="step !== 1">
+
+      <div class="foto-panel">
+        <div class="foto-avatar">
+          <mat-icon>person</mat-icon>
+        </div>
+        <div class="foto-text">
+          <h3>Fotografía del Niño/a</h3>
+          <p>Haz clic para subir una foto.</p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre Completo *</mat-label>
+          <input matInput formControlName="nombreCompleto" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Apodos</mat-label>
+          <input matInput formControlName="apodos" />
+        </mat-form-field>
+      </div>
+
+      <div class="grid-3">
+
+        <mat-form-field appearance="outline">
+          <mat-label>Fecha de nacimiento *</mat-label>
+          <input matInput type="date" formControlName="fechaNacimiento" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Edad</mat-label>
+<input matInput formControlName="edad" [disabled]="true" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Género *</mat-label>
+          <mat-select formControlName="genero">
+            @for (g of generos; track $index) {
+              <mat-option [value]="g">{{ g }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+
+      <div class="grid-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Lugar de nacimiento</mat-label>
+          <input matInput formControlName="lugarNacimiento" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Teléfono *</mat-label>
+          <input matInput formControlName="telefono" />
+        </mat-form-field>
+      </div>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Padre / Tutor *</mat-label>
+        <input matInput formControlName="padreTutor" />
+      </mat-form-field>
+
+    </section>
+
+    <!-- PASO 2 -->
+    <section class="step-panel" [hidden]="step !== 2">
+
+      <div class="grid-2">
+
+        <mat-form-field appearance="outline">
+          <mat-label>Tipo de sangre</mat-label>
+          <mat-select formControlName="tipoSangre">
+            @for (t of tiposSangre; track $index) {
+              <mat-option [value]="t">{{ t }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Diagnóstico principal *</mat-label>
+          <mat-select formControlName="diagnosticoPrincipal">
+            @for (d of diagnosticos; track $index) {
+              <mat-option [value]="d">{{ d }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Diagnósticos secundarios</mat-label>
+        <input matInput formControlName="diagnosticosSecundarios" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Alergias</mat-label>
+        <textarea matInput rows="2" formControlName="alergias"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Medicamentos actuales</mat-label>
+        <textarea matInput rows="2" formControlName="medicamentosActuales"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Restricciones alimentarias</mat-label>
+        <textarea matInput rows="2" formControlName="restriccionesAlimentarias"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Otras condiciones médicas</mat-label>
+        <textarea matInput rows="2" formControlName="otrasCondicionesMedicas"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Nivel de desarrollo</mat-label>
+        <mat-select formControlName="nivelDesarrollo">
+          @for (n of nivelesDesarrollo; track $index) {
+            <mat-option [value]="n">{{ n }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+    </section>
+
+    <!-- PASO 3 -->
+    <section class="step-panel" [hidden]="step !== 3">
+
+      <div class="panel-soft blue">
+        <h3>Contacto de emergencia principal</h3>
+
+        <div class="grid-2">
+
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre *</mat-label>
+            <input matInput formControlName="contactoPrincipalNombre" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Relación *</mat-label>
+            <mat-select formControlName="contactoPrincipalRelacion">
+              @for (r of relaciones; track $index) {
+                <mat-option [value]="r">{{ r }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Teléfono *</mat-label>
+          <input matInput formControlName="contactoPrincipalTelefono" />
+        </mat-form-field>
+
+      </div>
+
+    </section>
+
+    <!-- PASO 4 -->
+    <section class="step-panel" [hidden]="step !== 4">
+
+      <div class="panel-soft purple">
+        <h3>Documentos médicos relevantes</h3>
+
+        <div class="upload-box">
+          <mat-icon>cloud_upload</mat-icon>
+          <p>Haz clic para subir documentos</p>
+          <span>PDF, JPG, PNG, DOC</span>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- PASO 5 -->
+    <section class="step-panel" [hidden]="step !== 5">
+
+      <div class="panel-soft pink">
+        <h3>Preferencias y comportamiento</h3>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Actividades e intereses</mat-label>
+          <textarea matInput formControlName="actividadesIntereses"></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Miedos y aversiones</mat-label>
+          <textarea matInput formControlName="miedosAversiones"></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Estrategias de calma</mat-label>
+          <textarea matInput formControlName="estrategiasCalma"></textarea>
+        </mat-form-field>
+
+      </div>
+
+    </section>
+
+  </form>
+
+  <!-- FOOTER -->
+  <footer class="modal-footer">
+
+    <button
+      mat-stroked-button
+      type="button"
+      (click)="anterior()"
+      [disabled]="step === 1">
+      Anterior
+    </button>
+
+    <div class="footer-right">
+
+      <span class="step-text">Paso {{ step }} de {{ totalPasos }}</span>
+
+      <button
+        mat-flat-button
+        color="primary"
+        type="button"
+        (click)="siguiente()"
+        [hidden]="step === totalPasos">
+        Siguiente
+      </button>
+
+      <button
+        mat-flat-button
+        color="primary"
+        type="button"
+        (click)="guardar()"
+        [hidden]="step !== totalPasos">
+        {{ data ? 'Guardar Cambios' : 'Guardar Beneficiario' }}
+      </button>
+
+    </div>
+
+  </footer>
+
+</div>

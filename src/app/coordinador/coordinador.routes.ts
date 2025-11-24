@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { Inicio } from './pages/inicio/inicio';
 import { PersonalComponent } from './pages/personal/personal.component';
-import { Ninos} from './pages/ninos/ninos';
+import { NinosComponent } from './pages/ninos/ninos.component';
 import { Reportes } from './pages/reportes/reportes';
 import { Usuarios } from './pages/usuarios/usuarios';
 import { Perfil } from './pages/perfil/perfil';
@@ -23,7 +23,7 @@ export const COORDINADOR_ROUTES: Routes = [
       { path: 'inicio', component: Inicio },
       { path: 'citas', component: CitasComponent },
       { path: 'personal', component: PersonalComponent },
-      { path: 'ninos', component: Ninos },
+      { path: 'ninos', component: NinosComponent },
       { path: 'reportes', component: Reportes },
       { path: 'usuarios', component: Usuarios },
       { path: 'perfil', component: Perfil },

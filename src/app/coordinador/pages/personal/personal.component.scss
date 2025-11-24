@@ -1,5 +1,4 @@
 /* ================= VARIABLES ================= */
-
 :root {
   --primary: #2563eb;
   --primary-soft: #e0edff;
@@ -12,33 +11,19 @@
   --radius-md: 12px;
   --radius-sm: 10px;
 }
-// /* ================= WRAPPER ================= */
 
-// .personal-wrapper {
-//   padding: 0px 24px 32px;   /* 🔥 Antes: 10px — ahora sube el header */
-//   min-height: 100vh;
-//   display: flex;
-//   flex-direction: column;
-//   gap: 22px;
-//   background: var(--bg);
-//   color: var(--text-primary);
-// }
-
-/* ================= HEADER ================= */
-
+/* ================= HEADER SUPERIOR ================= */
 .page-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  padding-top: 0px !important;   /* 🔥 Antes 8px */
-  margin-top: -70px;              /* 🔥 Header sube visualmente */
-  
+  padding-top: 0px !important;
+  margin-top: -70px; /* 🔥 sube visualmente */
   gap: 16px;
 }
 
 /* ================= BOTÓN NUEVO PERSONAL ================= */
-
 .btn-new {
   display: inline-flex;
   align-items: center;
@@ -47,22 +32,21 @@
   border-radius: 12px;
   border: none;
   cursor: pointer;
+
   background: linear-gradient(135deg, #3b82f6, #8b5cf6);
   color: #fff;
   font-weight: 600;
   font-size: 0.9rem;
+
   box-shadow: 0 6px 18px rgba(139, 92, 246, 0.28);
   transition: 0.2s ease;
 
-  mat-icon {
-    font-size: 20px;
-  }
+  mat-icon { font-size: 20px; }
 
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 28px rgba(139, 92, 246, 0.38);
   }
-
   &:active {
     transform: translateY(0px);
     box-shadow: 0 4px 12px rgba(139, 92, 246, 0.25);
@@ -70,7 +54,6 @@
 }
 
 /* ================= TARJETAS DE ESTADÍSTICAS ================= */
-
 .stats-row {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -83,9 +66,11 @@
   background: var(--surface);
   border: 1px solid var(--border);
   box-shadow: 0 10px 26px rgba(15, 23, 42, 0.06);
+
   display: flex;
   gap: 12px;
   align-items: center;
+
   transition: 0.15s ease;
 
   &:hover {
@@ -93,10 +78,10 @@
     box-shadow: 0 16px 36px rgba(15, 23, 42, 0.15);
   }
 }
-/* =========================================================
- 🔍  BUSCADOR — Ahora MÁS LARGO
-========================================================= */
 
+/* =========================================================
+ 🔍  BUSCADOR — MÁS LARGO Y SEPARADO
+========================================================= */
 .search-wrapper {
   width: 100%;
   background: var(--surface);
@@ -105,13 +90,14 @@
   border: 1px solid var(--border);
   box-shadow: 0 4px 18px rgba(0, 0, 0, .04);
 
-  /* Asegura que el campo ocupe todo */
   display: flex;
+
+  margin-bottom: 26px;
 }
 
 .search-field {
-  flex: 1;                  /* 🔥 El buscador crece todo lo posible */
-  min-width: 350px;         /* 🔥 Evita que se haga chico */
+  flex: 1;
+  min-width: 350px;
 }
 
 .search-field .mat-mdc-form-field-flex {
@@ -127,31 +113,54 @@
   margin-right: 10px;
 }
 
-
 /* =========================================================
- 🎛️ SELECTS — Más pequeños y a la derecha
+ 🔥 EFECTO SPOTLIGHT REAL PARA EL BUSCADOR
 ========================================================= */
 
+.search-field .mat-mdc-form-field-flex.search-focus-hotkey {
+  border-color: var(--primary) !important;
+
+  box-shadow:
+    0 0 0 3px rgba(37, 99, 235, 0.35),
+    0 0 20px rgba(37, 99, 235, 0.45) !important;
+
+  transform: scale(1.015);
+  transition: all .22s ease-in-out;
+}
+
+/* Glow suave al hacer focus manual */
+.search-field .mat-mdc-form-field-flex:focus-within {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.25);
+  transition: all .22s ease;
+}
+
+/* =========================================================
+ 🎛️ SELECTS — Más pequeños y alineados a la derecha
+========================================================= */
 .selects-wrapper {
   display: flex;
-  justify-content: flex-end;   /* 🔥 Todo hacia la derecha */
+  justify-content: flex-end;
   gap: 14px;
+
   background: var(--surface);
   padding: 14px;
   border-radius: 18px;
   border: 1px solid var(--border);
   box-shadow: 0 4px 18px rgba(0,0,0,.04);
+
+  margin-bottom: 16px;
 }
 
 .filter-field {
-  width: 170px !important;      /* 🔥 Más pequeño que antes */
+  width: 170px !important;
   min-width: 150px;
 }
 
 .filter-field .mat-mdc-form-field-flex {
   background: var(--surface-alt);
   border-radius: 14px !important;
-  padding: 4px 12px !important; /* 🔥 Menos alto = más elegante */
+  padding: 4px 12px !important;
   border: 1px solid var(--border);
   transition: all .25s ease;
 }
@@ -161,20 +170,52 @@
   opacity: .85;
 }
 
+/* =========================================================
+ 📌 PANEL DEL SELECT
+========================================================= */
+:host ::ng-deep .mat-mdc-select-panel {
+  background: #ffffff !important;
+  border-radius: 14px !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: 0 12px 40px rgba(0,0,0,.18) !important;
+  padding: 6px 0 !important;
+}
+
+/* Opciones */
+:host ::ng-deep .mat-mdc-option {
+  background: #ffffff !important;
+  color: var(--text-primary) !important;
+  padding: 12px 14px !important;
+  border-radius: 10px !important;
+  margin: 2px 8px !important;
+  transition: .18s ease;
+}
+
+:host ::ng-deep .mat-mdc-option:hover {
+  background: rgba(37, 99, 235, 0.15) !important;
+  color: var(--primary-dark) !important;
+}
+
+:host ::ng-deep .mat-mdc-option.mdc-list-item--selected {
+  background: rgba(37, 99, 235, 0.20) !important;
+  color: var(--primary-dark) !important;
+  font-weight: 600 !important;
+}
 
 /* =========================================================
  🟦 VIEW SWITCH — SIEMPRE HORIZONTAL
 ========================================================= */
-
 .view-switch-wrapper {
   display: flex;
   flex-direction: row !important;
   justify-content: flex-start;
   align-items: center;
+
   gap: 14px;
-  margin-top: 6px;
   flex-wrap: nowrap !important;
   white-space: nowrap;
+
+  margin-top: 6px;
 }
 
 .view-chip {
@@ -182,10 +223,12 @@
   align-items: center;
   gap: 8px;
   padding: 8px 14px;
+
   background: var(--surface);
   border-radius: 14px;
   cursor: pointer;
   border: 1px solid var(--border);
+
   font-size: .87rem;
   transition: all .18s ease;
 
@@ -198,9 +241,11 @@
   &.active {
     background: var(--view-active-bg);
     color: var(--view-active-text);
+
     box-shadow:
       0 6px 18px rgba(37,99,235,.28),
       0 0 10px rgba(37,99,235,.18);
+
     border-color: transparent;
     transform: translateY(-2px);
   }

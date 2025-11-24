@@ -4,15 +4,14 @@ import { Subject } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class SearchService {
 
-  private searchSubject = new Subject<string>();
-  search$ = this.searchSubject.asObservable();
+  private searchTrigger = new Subject<void>();
+  trigger$ = this.searchTrigger.asObservable();
 
   constructor() {
     window.addEventListener('keydown', (e) => {
       if (e.ctrlKey && e.key.toLowerCase() === 'k') {
         e.preventDefault();
-        const query = prompt('Buscar personal:');
-        if (query) this.searchSubject.next(query);
+        this.searchTrigger.next(); // 🔥 Solo dispara el evento
       }
     });
   }

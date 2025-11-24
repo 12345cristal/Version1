@@ -1,0 +1,159 @@
+.ninos-wrapper {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* HEADER */
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  h1 {
+    font-size: 26px;
+    margin: 0;
+    font-weight: 700;
+  }
+
+  .subtitle {
+    margin-top: 4px;
+    color: #64748b;
+    font-size: 14px;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .search-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #f1f5f9;
+    padding: 8px 12px;
+    border-radius: 12px;
+
+    input {
+      border: none;
+      background: transparent;
+      outline: none;
+    }
+  }
+}
+
+/* TARJETAS DE ESTADISTICAS */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+
+  .stat-card {
+    padding: 16px;
+    border-radius: 16px;
+    background: white;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+
+    .stat-number {
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      margin-top: 4px;
+      color: #64748b;
+    }
+  }
+}
+
+/* TOGGLE */
+.estado-toggle {
+  display: flex;
+  gap: 12px;
+
+  .chip {
+    padding: 6px 16px;
+    border-radius: 30px;
+    background: #f1f5f9;
+    cursor: pointer;
+
+    &.active {
+      background: #2563eb;
+      color: white;
+    }
+  }
+}
+
+/* LISTADO */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 20px;
+}
+
+.nino-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 5px 16px rgba(0,0,0,0.08);
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .avatar {
+    width: 64px;
+    height: 64px;
+    background: #e2e8f0;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    span {
+      font-size: 24px;
+      font-weight: 700;
+      color: #475569;
+    }
+  }
+
+  .badge-estado {
+    margin-top: 6px;
+    display: inline-block;
+    padding: 2px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    background: #e2e8f0;
+
+    &.activo {
+      background: #bbf7d0;
+      color: #166534;
+    }
+  }
+
+  .card-footer {
+    margin-top: 16px;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+/* EMPTY */
+.empty-state {
+  padding: 40px;
+  text-align: center;
+  background: #f1f5f9;
+  border-radius: 14px;
+}

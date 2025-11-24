@@ -10,7 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 
-import { PersonalService } from '../../services/personal.service';
+import { PersonalService } from '../../../services/personal.service';
 import { Personal } from '../../../interfaces/personal/personal.interface';
 
 @Component({
