@@ -16,62 +16,84 @@
       Estos datos ayudan a brindar una atención más segura y personalizada.
     </p>
 
+    <!-- ====================== GRID 2 ====================== -->
     <div class="form-grid-2">
+
+      <!-- Tipo de Sangre -->
       <mat-form-field appearance="outline">
         <mat-label>Tipo de sangre</mat-label>
+
         <mat-select formControlName="tipoSangre">
           @for (t of tiposSangre; track $index) {
             <mat-option [value]="t">{{ t }}</mat-option>
           }
         </mat-select>
+
       </mat-form-field>
 
+      <!-- Diagnóstico principal -->
       <mat-form-field appearance="outline">
         <mat-label>Diagnóstico principal *</mat-label>
+
         <mat-select formControlName="diagnosticoPrincipal">
           @for (d of diagnosticos; track $index) {
             <mat-option [value]="d">{{ d }}</mat-option>
           }
         </mat-select>
+
+        <mat-error>
+          ⚠ Este campo es obligatorio
+        </mat-error>
+
       </mat-form-field>
+
     </div>
 
+    <!-- Diagnósticos secundarios -->
     <mat-form-field appearance="outline">
       <mat-label>Diagnósticos secundarios</mat-label>
       <input matInput formControlName="diagnosticosSecundarios" />
     </mat-form-field>
 
+    <!-- Alergias -->
     <mat-form-field appearance="outline">
       <mat-label>Alergias</mat-label>
       <textarea matInput rows="2" formControlName="alergias"></textarea>
     </mat-form-field>
 
+    <!-- Medicamentos -->
     <mat-form-field appearance="outline">
       <mat-label>Medicamentos actuales</mat-label>
       <textarea matInput rows="2" formControlName="medicamentosActuales"></textarea>
     </mat-form-field>
 
+    <!-- Restricciones -->
     <mat-form-field appearance="outline">
       <mat-label>Restricciones alimentarias</mat-label>
       <textarea matInput rows="2" formControlName="restriccionesAlimentarias"></textarea>
     </mat-form-field>
 
+    <!-- Condiciones médicas -->
     <mat-form-field appearance="outline">
       <mat-label>Otras condiciones médicas</mat-label>
       <textarea matInput rows="2" formControlName="otrasCondicionesMedicas"></textarea>
     </mat-form-field>
 
+    <!-- Nivel de desarrollo -->
     <mat-form-field appearance="outline">
       <mat-label>Nivel de desarrollo</mat-label>
+
       <mat-select formControlName="nivelDesarrollo">
         @for (n of nivelesDesarrollo; track $index) {
           <mat-option [value]="n">{{ n }}</mat-option>
         }
       </mat-select>
+
     </mat-form-field>
 
   </form>
 
+  <!-- ====================== FOOTER ====================== -->
   <footer class="page-footer-edit">
     <button mat-stroked-button type="button" (click)="anterior()">
       Anterior
@@ -79,7 +101,12 @@
 
     <div class="footer-right">
       <span class="step-text">Paso 2 de 5</span>
-      <button mat-flat-button color="primary" type="button" (click)="siguiente()">
+      <button 
+        mat-flat-button 
+        color="primary" 
+        type="button" 
+        (click)="siguiente()"
+        [disabled]="formulario.invalid">
         Siguiente
       </button>
     </div>

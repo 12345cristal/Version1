@@ -227,3 +227,25 @@ mat-form-field {
     align-items: flex-start;
   }
 }
+/* ----------------- ERRORES EN ROJO ----------------- */
+mat-error {
+  color: #dc2626 !important;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+/* Borde rojo cuando hay error */
+.mat-form-field-invalid .mat-input-element,
+.mat-form-field-invalid .mat-select-arrow,
+.mat-form-field-invalid .mat-form-field-outline {
+  color: #dc2626 !important;
+  border-color: #dc2626 !important;
+}
+
+/* Botón deshabilitado elegante */
+button[disabled] {
+  background: #9ca3af !important;
+  color: #ffffff !important;
+  cursor: not-allowed;
+  opacity: 0.9;
+}

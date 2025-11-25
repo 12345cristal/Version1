@@ -1,254 +1,238 @@
-/* ============================================================
-   🎨 PALETA PROFESIONAL
-   ------------------------------------------------------------
-   Estilo limpio, médico y moderno.
-============================================================ */
+/* =============================================
+   🔧 FIX PARA QUE LOS INPUTS NO ESTÉN PLANOS
+   (Angular Material Outline restaurado + mejoras)
+============================================= */
+
+.mat-mdc-form-field {
+  --mdc-theme-primary: #2563eb;      /* color azul de borde */
+  --mdc-filled-text-field-container-color: transparent;
+}
+
+.mdc-text-field--outlined {
+  background: white;
+  border-radius: 12px !important;
+  transition: 0.25s ease;
+}
+
+/* 🟦 BORDE NORMAL */
+.mdc-notched-outline__leading,
+.mdc-notched-outline__notch,
+.mdc-notched-outline__trailing {
+  border-color: #d1d5db !important; /* gris bonito */
+}
+
+/* 🟦 HOVER */
+.mdc-text-field--outlined:hover .mdc-notched-outline__leading,
+.mdc-text-field--outlined:hover .mdc-notched-outline__notch,
+.mdc-text-field--outlined:hover .mdc-notched-outline__trailing {
+  border-color: #2563eb !important;
+}
+
+/* 🔵 FOCUS */
+.mdc-text-field--focused .mdc-notched-outline__leading,
+.mdc-text-field--focused .mdc-notched-outline__notch,
+.mdc-text-field--focused .mdc-notched-outline__trailing {
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15) !important;
+}/* ==========================================================
+   🌈 PALETA GLOBAL — Compatible con modo claro / oscuro
+========================================================== */
 :root {
-  --primary: #2563eb;
-  --primary-dark: #1e40af;
-  --primary-light: #60a5fa;
-
-  --gray-bg: #f8fafc;
-  --gray-soft: #f1f5f9;
-  --gray-border: #e2e8f0;
-
+  --bg: #f4f6fb;
+  --card-bg: #ffffff;
+  --card-border: #e5e7eb;
   --text-primary: #0f172a;
   --text-secondary: #64748b;
-  --text-light: #94a3b8;
 
-  --card-radius: 18px;
-  --card-shadow: 0 10px 25px rgba(15, 23, 42, 0.07);
+  --primary: #2563eb;
+  --primary-hover: #1e40af;
+
+  --avatar-gradient: linear-gradient(135deg, #3b82f6, #a855f7);
+  --soft-gradient: linear-gradient(135deg, #e0f2fe, #f5e1ff);
+
+  --radius: 18px;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
-/* ============================================================
-   🧱 LAYOUT BASE DEL PASO
-============================================================ */
+/* 🌓 MODO OSCURO */
+:root.dark {
+  --bg: #0f172a;
+  --card-bg: #1e293b;
+  --card-border: #334155;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+
+  --soft-gradient: linear-gradient(135deg, #182b41, #2b1e3d);
+  --avatar-gradient: linear-gradient(135deg, #4f46e5, #ec4899);
+
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* ==========================================================
+   LAYOUT
+========================================================== */
 .nino-step-page {
   min-height: calc(100vh - 64px);
-  padding: 26px 30px 40px;
-  background: var(--gray-bg);
-  font-family: "Inter", system-ui, sans-serif;
+  padding: 32px 40px;
+  background: var(--bg);
+  transition: background 0.3s ease;
 }
 
-/* ============================================================
-   🔹 HEADER PROFESIONAL
-============================================================ */
+/* ==========================================================
+   HEADER
+========================================================== */
 .page-header-edit {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 26px;
+  align-items: flex-start;   /* 🔼 ANTES: flex-end — esto lo sube */
+  margin-top: -70px;         /* 🔼 Empuja todo hacia arriba */
+  margin-bottom: 22px;       /* 🔼 Ajuste más fino */
 
   h1 {
-    margin: 0;
-    font-size: 1.9rem;
+    font-size: 1.85rem;      /* 🔼 Ligeramente más compacto */
     font-weight: 800;
-    letter-spacing: -0.5px;
+    margin: 0;
     color: var(--text-primary);
+    line-height: 1.1;        /* 🔼 Reduce aire arriba/abajo */
   }
 
   .subtitle {
-    margin-top: 6px;
-    font-size: 0.95rem;
+    margin-top: 2px;         /* 🔽 Mucho menos espacio */
+    font-size: 0.92rem;
     color: var(--text-secondary);
+    line-height: 1.15;
   }
 
   button {
-    border-radius: 12px;
-    padding: 6px 16px !important;
+    border-radius: 10px !important;
+    padding: 6px 18px !important;
     font-weight: 600;
+    margin-top: 4px;         /* 🔼 Opcional: lo sube también */
   }
 }
 
-/* ============================================================
-   🔵 CARD DEL FORMULARIO
-============================================================ */
-.form-card {
-  background: #ffffff;
-  border-radius: var(--card-radius);
-  padding: 26px 26px 22px;
-  border: 1px solid var(--gray-border);
-  box-shadow: var(--card-shadow);
 
+/* ==========================================================
+   FORM CARD
+========================================================== */
+.form-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 28px;
+  border: 1px solid var(--card-border);
+  box-shadow: var(--shadow);
+  transition: 0.3s ease;
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  gap: 24px;
 }
 
-/* Grids */
-.form-grid-2 {
+/* GRID */
+.form-grid-2,
+.form-grid-3 {
   display: grid;
+  gap: 20px;
+}
+
+.form-grid-2 {
   grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
 }
 
 .form-grid-3 {
-  display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
 }
 
-/* Inputs */
 mat-form-field {
   width: 100%;
-
-  .mat-mdc-text-field-wrapper {
-    border-radius: 14px !important;
-  }
 }
 
-/* ============================================================
-   🖼 PANEL DE FOTO
-============================================================ */
+/* ==========================================================
+   FOTO PANEL
+========================================================== */
 .foto-panel {
   display: flex;
+  gap: 18px;
   align-items: center;
 
-  padding: 16px 18px;
-  border-radius: 16px;
-  
-  background: linear-gradient(
-    135deg,
-    #eff6ff,
-    #faf5ff 50%,
-    #ffffff
-  );
-
-  border: 1px solid var(--gray-border);
-  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.09);
+  background: var(--soft-gradient);
+  padding: 20px;
+  border-radius: var(--radius);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--shadow);
 }
 
 .foto-avatar {
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
   border-radius: 999px;
-
-  background: linear-gradient(135deg, #3b82f6, #a855f7);
+  background: var(--avatar-gradient);
   display: grid;
   place-items: center;
-  color: white;
-
-  box-shadow: 0 15px 35px rgba(59, 130, 246, 0.35);
+  color: #fff;
+  font-size: 34px;
+  box-shadow: 0 16px 34px rgba(37, 99, 235, 0.35);
 
   mat-icon {
     font-size: 34px;
   }
 }
 
-.foto-text {
-  h3 {
-    margin: 0 0 4px;
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--text-primary);
-  }
-
-  p {
-    margin: 0;
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-  }
+.foto-text h3 {
+  margin: 0 0 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
 }
 
-/* ============================================================
-   💠 PANELES SUAVES
-============================================================ */
-.panel-soft {
-  border-radius: 14px;
-  padding: 16px;
-  border: 1px solid var(--gray-border);
-  background: #ffffff;
-
-  &.blue { background: #e0f2fe; }
-  &.purple { background: #ede9fe; }
-  &.pink { background: #fce7f3; }
+.foto-text p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
 }
 
-/* ============================================================
-   📤 UPLOAD BOX
-============================================================ */
-.upload-box {
-  margin-top: 10px;
-
-  border-radius: 16px;
-  padding: 20px 14px;
-  border: 2px dashed var(--primary-light);
-
-  background: #ffffff;
-
-  display: grid;
-  place-items: center;
-  gap: 6px;
-  cursor: pointer;
-
-  transition: all 0.2s ease;
-
-  mat-icon {
-    font-size: 34px;
-    color: var(--primary);
-  }
-
-  p {
-    margin: 0;
-    color: var(--text-primary);
-    font-size: 0.95rem;
-    font-weight: 500;
-  }
-
-  span {
-    color: var(--text-secondary);
-    font-size: 0.82rem;
-  }
-
-  &:hover {
-    background: #f0f9ff;
-    border-color: var(--primary);
-    transform: translateY(-2px);
-    box-shadow: var(--card-shadow);
-  }
-}
-
-/* ============================================================
-   🟦 FOOTER PROFESIONAL
-============================================================ */
+/* ==========================================================
+   FOOTER
+========================================================== */
 .page-footer-edit {
-  margin-top: 26px;
-
+  margin-top: 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   .step-text {
-    font-size: 0.9rem;
     color: var(--text-secondary);
-    font-weight: 500;
   }
 
-  .footer-right {
-    display: flex;
-    gap: 12px;
+  button {
+    border-radius: 10px !important;
+    padding: 8px 20px !important;
+    font-weight: 600;
+  }
 
-    button {
-      border-radius: 12px !important;
-      padding: 8px 20px !important;
-      font-weight: 600;
-      letter-spacing: -0.2px;
-    }
+  .footer-right button {
+    background: var(--primary) !important;
+    color: white !important;
+  }
+
+  .footer-right button:hover {
+    background: var(--primary-hover) !important;
   }
 }
 
-/* ============================================================
-   📱 RESPONSIVE
-============================================================ */
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
 @media (max-width: 900px) {
-  .form-grid-3 { grid-template-columns: repeat(2, 1fr); }
+  .form-grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 680px) {
   .form-grid-2,
-  .form-grid-3 { grid-template-columns: 1fr; }
-
-  .nino-step-page { padding: 20px; }
+  .form-grid-3 {
+    grid-template-columns: 1fr;
+  }
 
   .page-header-edit {
     flex-direction: column;

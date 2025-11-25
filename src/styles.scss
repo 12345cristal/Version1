@@ -1,44 +1,45 @@
 /* ============================================================
-   ANGULAR MATERIAL 3 – THEME (SIN PALETAS SASS)
-   Compatible 100% con Angular 17–22
+   ANGULAR MATERIAL 3 – THEME GLOBAL
+   (Compatible Angular 17–22, standalone)
 ============================================================ */
 @use '@angular/material' as mat;
 
 /* ============================================================
-   🌕🌑 TEMA CLARO / OSCURO GLOBAL
-   (Controlado por ThemeService)
+   🌗 LIGHT / DARK THEMES (se activan cambiando .dark-theme)
 ============================================================ */
 
-/* ======== TEMA CLARO (default) ======== */
+/* ========= LIGHT THEME ========= */
 :root {
-  --color-primary: #2563eb;
-  --color-primary-light: #60a5fa;
+  --primary: #2563eb;
+  --primary-light: #60a5fa;
+  --primary-dark: #1e40af;
 
-  --color-bg: #ffffff;
-  --color-surface: #f7f9fc;
+  --bg: #ffffff;
+  --surface: #f7f9fc;
 
-  --color-text: #1e293b;
-  --color-text-secondary: #64748b;
+  --text: #1e293b;
+  --text-secondary: #64748b;
 
-  --color-border: #e2e8f0;
+  --border: #e2e8f0;
 }
 
-/* ======== TEMA OSCURO ======== */
+/* ========= DARK THEME ========= */
 :root.dark-theme {
-  --color-primary: #3b82f6;
-  --color-primary-light: #93c5fd;
+  --primary: #3b82f6;
+  --primary-light: #93c5fd;
+  --primary-dark: #1e3a8a;
 
-  --color-bg: #0f172a;
-  --color-surface: #1e293b;
+  --bg: #0f172a;
+  --surface: #1e293b;
 
-  --color-text: #e2e8f0;
-  --color-text-secondary: #94a3b8;
+  --text: #f1f5f9;
+  --text-secondary: #94a3b8;
 
-  --color-border: #334155;
+  --border: #334155;
 }
 
 /* ============================================================
-   GLOBAL
+   GLOBAL RESET + BASE
 ============================================================ */
 
 *,
@@ -55,10 +56,10 @@ body {
 }
 
 body {
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  font-family: "Inter", sans-serif;
-  transition: background-color .25s ease, color .25s ease;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Inter", system-ui, sans-serif;
+  transition: background .25s ease, color .25s ease;
 }
 
 app-root {
@@ -73,6 +74,145 @@ app-root {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-border);
-  border-radius: 4px;
+  background: var(--border);
+  border-radius: 5px;
+}
+
+/* ============================================================
+   🔥 FIX PROFESIONAL PARA INPUTS MATERIAL
+   (ADIOS campos planos)
+============================================================ */
+
+/* NOTCHED OUTLINE (borde) */
+.mdc-text-field--outlined .mdc-notched-outline {
+  border-color: var(--border) !important;
+  border-width: 1.6px !important;
+  border-radius: 14px !important;
+  transition: all .22s ease !important;
+}
+
+/* Hover borde */
+.mdc-text-field--outlined:hover .mdc-notched-outline {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, .20);
+}
+
+/* Focus */
+.mdc-text-field--focused .mdc-notched-outline {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, .28) !important;
+}
+
+/* Fondo del input */
+.mdc-text-field--outlined {
+  background: #ffffff !important;
+  border-radius: 14px !important;
+}
+
+.dark-theme .mdc-text-field--outlined {
+  background: #1e293b !important;
+}
+
+/* Texto y labels */
+.mdc-floating-label {
+  color: var(--text-secondary) !important;
+  font-weight: 500;
+}
+
+.mdc-text-field__input {
+  color: var(--text) !important;
+}
+
+.mdc-text-field__input::placeholder {
+  color: #94a3b8 !important;
+}
+
+/* Error */
+mat-error {
+  color: #dc2626 !important;
+  font-weight: 600;
+  font-size: .8rem !important;
+}
+
+/* ============================================================
+   🔘 BOTONES – Estilo PRO
+============================================================ */
+
+.mdc-button--raised,
+.mat-mdc-raised-button {
+  border-radius: 10px !important;
+  padding: 0 18px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, .22) !important;
+}
+
+.mdc-button--outlined {
+  border-radius: 10px !important;
+}
+
+/* Dark mode */
+.dark-theme .mdc-button--raised {
+  box-shadow: 0 3px 10px rgba(148, 163, 184, .25) !important;
+}
+
+/* ============================================================
+   🔹 TARJETAS / SURFACES
+============================================================ */
+
+.card,
+.surface-box {
+  background: var(--surface);
+  border-radius: 18px;
+  padding: 22px;
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 25px rgba(15, 23, 42, .06);
+}
+
+.dark-theme .card {
+  background: #1e293b;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, .4);
+}
+
+/* ============================================================
+   🧭 INPUT SELECT – FIX + ESTILO
+============================================================ */
+
+.mat-mdc-select-trigger {
+  color: var(--text) !important;
+}
+
+.mat-mdc-select-value-text {
+  color: var(--text) !important;
+}
+
+.dark-theme .mat-mdc-select-panel {
+  background: #1e293b !important;
+}
+
+/* ============================================================
+   🧩 TIPOGRAFÍA GENERAL
+============================================================ */
+
+h1, h2, h3 {
+  color: var(--text);
+}
+
+p {
+  color: var(--text-secondary);
+}
+
+/* ============================================================
+   🎨 RESPONSIVE
+============================================================ */
+
+@media (max-width: 900px) {
+  .card {
+    padding: 18px;
+  }
+}
+
+@media (max-width: 680px) {
+  .card {
+    padding: 15px;
+  }
 }

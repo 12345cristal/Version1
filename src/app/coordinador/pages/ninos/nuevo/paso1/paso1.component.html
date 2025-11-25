@@ -4,9 +4,7 @@
   <header class="page-header-edit">
     <div>
       <h1>Nuevo beneficiario</h1>
-      <p class="subtitle">
-        Paso 1 de 5 · Datos personales
-      </p>
+      <p class="subtitle">Paso 1 de 5 · Datos personales</p>
     </div>
 
     <button mat-stroked-button color="primary" (click)="cancelar()">
@@ -28,45 +26,68 @@
       </div>
     </div>
 
-    <!-- NOMBRE Y APODOS -->
+    <!-- =================== NOMBRE Y APODOS =================== -->
     <div class="form-grid-2">
+
+      <!-- Nombre completo -->
       <mat-form-field appearance="outline">
         <mat-label>Nombre completo *</mat-label>
         <input matInput formControlName="nombreCompleto" />
+        <mat-error>
+          ⚠ Este campo es obligatorio
+        </mat-error>
       </mat-form-field>
 
+      <!-- Apodos -->
       <mat-form-field appearance="outline">
         <mat-label>Apodos</mat-label>
         <input matInput formControlName="apodos" />
       </mat-form-field>
+
     </div>
 
-    <!-- FECHA, EDAD, GÉNERO -->
+    <!-- =================== FECHA, EDAD, GÉNERO =================== -->
     <div class="form-grid-3">
 
+      <!-- Fecha nacimiento -->
       <mat-form-field appearance="outline">
         <mat-label>Fecha de nacimiento *</mat-label>
         <input matInput type="date" formControlName="fechaNacimiento" />
+        <mat-error>
+          ⚠ Este campo es obligatorio
+        </mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Edad</mat-label>
-        <input matInput formControlName="edad" />
-      </mat-form-field>
+      <!-- Edad -->
+    <mat-form-field appearance="outline">
+  <mat-label>Edad</mat-label>
+  <input matInput formControlName="edad" />
+</mat-form-field>
 
+
+      <!-- Género -->
       <mat-form-field appearance="outline">
         <mat-label>Género *</mat-label>
         <mat-select formControlName="genero">
-          @for (g of generos; track $index) {
-            <mat-option [value]="g">{{ g }}</mat-option>
-          }
+
+          <!-- OPCIONES ESTÁTICAS SIN FOR -->
+          <mat-option value="Masculino">Masculino</mat-option>
+          <mat-option value="Femenino">Femenino</mat-option>
+          <mat-option value="No especificado">No especificado</mat-option>
+
         </mat-select>
+
+        <mat-error>
+          ⚠ Selecciona un género
+        </mat-error>
+
       </mat-form-field>
 
     </div>
 
-    <!-- LUGAR NACIMIENTO + TEL -->
+    <!-- ================= LUGAR + TELÉFONO ================= -->
     <div class="form-grid-2">
+
       <mat-form-field appearance="outline">
         <mat-label>Lugar de nacimiento</mat-label>
         <input matInput formControlName="lugarNacimiento" />
@@ -75,13 +96,22 @@
       <mat-form-field appearance="outline">
         <mat-label>Teléfono *</mat-label>
         <input matInput formControlName="telefono" />
+
+        <mat-error>
+          ⚠ Campo obligatorio
+        </mat-error>
+
       </mat-form-field>
+
     </div>
 
-    <!-- PADRE / TUTOR -->
+    <!-- Padre / Tutor -->
     <mat-form-field appearance="outline">
       <mat-label>Padre / Tutor *</mat-label>
       <input matInput formControlName="padreTutor" />
+      <mat-error>
+        ⚠ Campo obligatorio
+      </mat-error>
     </mat-form-field>
 
   </form>
@@ -92,7 +122,12 @@
     <span class="step-text">Paso 1 de 5</span>
 
     <div class="footer-right">
-      <button mat-flat-button color="primary" type="button" (click)="siguiente()">
+      <button 
+        mat-flat-button 
+        color="primary"
+        type="button"
+        (click)="siguiente()"
+      >
         Siguiente
       </button>
     </div>
