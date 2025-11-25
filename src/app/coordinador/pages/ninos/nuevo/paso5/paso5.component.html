@@ -1,0 +1,55 @@
+<div class="nino-step-page">
+
+  <header class="page-header-edit">
+    <div>
+      <h1>Nuevo beneficiario</h1>
+      <p class="subtitle">
+        Paso 5 de 5 · Preferencias y comportamiento
+      </p>
+    </div>
+  </header>
+
+  <form [formGroup]="formulario" class="form-card">
+
+    <h2 class="form-section-title">Preferencias y comportamiento</h2>
+    <p class="form-section-subtitle">
+      Esta información ayuda a que las terapias sean más agradables y efectivas.
+    </p>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Actividades e intereses</mat-label>
+      <textarea matInput rows="3" formControlName="actividadesIntereses"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Miedos y aversiones</mat-label>
+      <textarea matInput rows="3" formControlName="miedosAversiones"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Estrategias de calma</mat-label>
+      <textarea matInput rows="3" formControlName="estrategiasCalma"></textarea>
+    </mat-form-field>
+
+  </form>
+
+  <footer class="page-footer-edit">
+    <button mat-stroked-button type="button" (click)="anterior()">
+      Anterior
+    </button>
+
+    <div class="footer-right">
+      <span class="step-text">Paso 5 de 5</span>
+
+      <button
+        mat-flat-button
+        color="primary"
+        type="button"
+        (click)="guardar()"
+        [disabled]="guardando">
+        {{ guardando ? 'Guardando…' : 'Guardar beneficiario' }}
+      </button>
+    </div>
+  </footer>
+
+</div>

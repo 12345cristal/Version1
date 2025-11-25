@@ -1,0 +1,219 @@
+/* ===== Estilo base para todos los pasos ===== */
+
+.nino-step-page {
+  min-height: calc(100vh - 64px);
+  padding: 20px 24px 28px;
+  background: #f8fafc;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* HEADER */
+
+.page-header-edit {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  margin-bottom: 18px;
+
+  h1 {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  .subtitle {
+    margin: 4px 0 0;
+    color: #64748b;
+    font-size: 0.9rem;
+  }
+}
+
+.step-pill {
+  font-size: 0.8rem;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #e0f2fe;
+  color: #0369a1;
+  font-weight: 500;
+}
+
+/* CARD DEL FORM */
+
+.form-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 18px 20px 16px;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+  border: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-section-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0 0 4px;
+}
+
+.form-section-subtitle {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin: 0 0 4px;
+}
+
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.form-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+/* Panel foto del paso 1 */
+
+.foto-panel {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: radial-gradient(circle at top left, #eff6ff 0, #fdf2ff 45%, #ffffff 100%);
+  border: 1px solid #e5e7eb;
+}
+
+.foto-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #2563eb, #ec4899);
+  display: grid;
+  place-items: center;
+  color: #ffffff;
+  box-shadow: 0 12px 28px rgba(79, 70, 229, 0.45);
+
+  mat-icon {
+    font-size: 28px;
+  }
+}
+
+.foto-text h3 {
+  margin: 0 0 2px;
+  font-size: 0.95rem;
+  color: #0f172a;
+}
+
+.foto-text p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+/* Panel suave genérico */
+
+.panel-soft {
+  border-radius: 12px;
+  padding: 12px 14px 10px;
+  border: 1px solid #e2e8f0;
+  background: #f9fafb;
+
+  &.blue {
+    background: #e0f2fe;
+  }
+
+  &.purple {
+    background: #ede9fe;
+  }
+
+  &.pink {
+    background: #fce7f3;
+  }
+}
+
+/* Upload caja */
+
+.upload-box {
+  margin-top: 8px;
+  border-radius: 12px;
+  border: 2px dashed #cbd5f5;
+  padding: 18px 10px;
+  text-align: center;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+  cursor: pointer;
+
+  mat-icon {
+    font-size: 28px;
+    color: #2563eb;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #0f172a;
+  }
+
+  span {
+    font-size: 0.8rem;
+    color: #64748b;
+  }
+}
+
+/* FOOTER */
+
+.page-footer-edit {
+  margin-top: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+
+  .step-text {
+    font-size: 0.85rem;
+    color: #64748b;
+  }
+
+  .footer-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+  .form-grid-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .form-grid-2,
+  .form-grid-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .page-header-edit {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nino-step-page {
+    padding-inline: 16px;
+  }
+}

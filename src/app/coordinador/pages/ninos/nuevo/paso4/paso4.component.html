@@ -1,0 +1,39 @@
+<div class="nino-step-page">
+
+  <header class="page-header-edit">
+    <div>
+      <h1>Nuevo beneficiario</h1>
+      <p class="subtitle">Paso 4 de 5 · Documentos</p>
+    </div>
+
+    <button mat-stroked-button color="primary" (click)="anterior()">
+      Regresar
+    </button>
+  </header>
+
+  <div class="form-card">
+
+    <div class="panel-soft purple">
+      <h3>Documentos médicos relevantes</h3>
+
+      <div class="upload-box">
+        <mat-icon>cloud_upload</mat-icon>
+        <p>Haz clic para subir documentos</p>
+        <span>PDF, JPG, PNG, DOC</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <footer class="page-footer-edit">
+    <span class="step-text">Paso 4 de 5</span>
+
+    <div class="footer-right">
+      <button mat-flat-button color="primary" type="button" (click)="siguiente()">
+        Siguiente
+      </button>
+    </div>
+  </footer>
+
+</div>

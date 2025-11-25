@@ -1,7 +1,6 @@
-import { Component, Inject, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -10,13 +9,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatOptionModule } from '@angular/material/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { CatalogosService } from '../../../../services/catalogo.service';
 import { NinosService } from '../../../../services/ninos.service';
 import { Nino } from '../../../../interfaces/nuevo_beneficiario/nino.interface';
 
 @Component({
-  selector: 'app-nino-form-dialog',
+  selector: 'app-nino-form',
   standalone: true,
   templateUrl: './nino-form-dialog.component.html',
   styleUrls: ['./nino-form-dialog.component.scss'],
@@ -48,17 +48,21 @@ export class NinoFormDialogComponent implements OnInit {
   relaciones: string[] = [];
   nivelesDesarrollo: string[] = [];
 
+  id: number | null = null;
+
   constructor(
     private fb: FormBuilder,
     private catalogos: CatalogosService,
     private ninosService: NinosService,
-    private dialogRef: MatDialogRef<NinoFormDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Nino | null
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
 
-    this.titulo = this.data
+    this.id = Number(this.route.snapshot.paramMap.get('id'));
+
+    this.titulo = this.id
       ? 'Editar Beneficiario'
       : 'Agregar Nuevo Beneficiario';
 
@@ -91,24 +95,25 @@ export class NinoFormDialogComponent implements OnInit {
       estrategiasCalma: ['']
     });
 
-    // Cargar catálogos desde backend
+    // Cargar catálogos
     this.catalogos.getTiposSangre().subscribe(v => this.tiposSangre = v ?? []);
     this.catalogos.getGeneros().subscribe(v => this.generos = v ?? []);
     this.catalogos.getDiagnosticos().subscribe(v => this.diagnosticos = v ?? []);
     this.catalogos.getRelaciones().subscribe(v => this.relaciones = v ?? []);
     this.catalogos.getNivelesDesarrollo().subscribe(v => this.nivelesDesarrollo = v ?? []);
 
-    // Si es edición, rellenar
-    if (this.data) {
-      this.formulario.patchValue(this.data);
+    // Si es edición, cargar datos
+    if (this.id) {
+      this.ninosService.obtener(this.id).subscribe(data => {
+        this.formulario.patchValue(data);
 
-      if (this.data.fechaNacimiento) {
-        const edad = this.calcularEdad(this.data.fechaNacimiento);
-        this.formulario.get('edad')?.setValue(edad);
-      }
+        if (data.fechaNacimiento) {
+          this.formulario.get('edad')?.setValue(this.calcularEdad(data.fechaNacimiento));
+        }
+      });
     }
 
-    // Calcular edad automáticamente
+    // Calcular edad
     this.formulario.get('fechaNacimiento')?.valueChanges.subscribe(date => {
       if (date) {
         this.formulario.get('edad')?.setValue(this.calcularEdad(date));
@@ -120,17 +125,13 @@ export class NinoFormDialogComponent implements OnInit {
     const fn = new Date(date);
     const hoy = new Date();
     let edad = hoy.getFullYear() - fn.getFullYear();
-
     const m = hoy.getMonth() - fn.getMonth();
-    if (m < 0 || (m === 0 && hoy.getDate() < fn.getDate())) {
-      edad--;
-    }
-
+    if (m < 0 || (m === 0 && hoy.getDate() < fn.getDate())) edad--;
     return edad;
   }
 
   cerrar() {
-    this.dialogRef.close(false);
+    this.router.navigate(['/coordinador/ninos']);
   }
 
   siguiente() {
@@ -153,20 +154,20 @@ export class NinoFormDialogComponent implements OnInit {
 
     const payload = this.formulario.getRawValue();
 
-    if (this.data?.id) {
-      this.ninosService.actualizar(this.data.id, payload).subscribe(() => {
-        this.dialogRef.close(true);
+    if (this.id) {
+      this.ninosService.actualizar(this.id, payload).subscribe(() => {
+        this.router.navigate(['/coordinador/ninos']);
       });
 
     } else {
       this.ninosService.crear(payload).subscribe(() => {
-        this.dialogRef.close(true);
+        this.router.navigate(['/coordinador/ninos']);
       });
     }
   }
-  get step() {
-  return this.pasoActual();
-}
 
+  get step() {
+    return this.pasoActual();
+  }
 
 }

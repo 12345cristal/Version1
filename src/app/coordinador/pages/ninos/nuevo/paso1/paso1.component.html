@@ -1,0 +1,102 @@
+<div class="nino-step-page">
+
+  <!-- HEADER -->
+  <header class="page-header-edit">
+    <div>
+      <h1>Nuevo beneficiario</h1>
+      <p class="subtitle">
+        Paso 1 de 5 · Datos personales
+      </p>
+    </div>
+
+    <button mat-stroked-button color="primary" (click)="cancelar()">
+      Cancelar
+    </button>
+  </header>
+
+  <!-- FORM -->
+  <form [formGroup]="formulario" class="form-card">
+
+    <!-- FOTO -->
+    <div class="foto-panel">
+      <div class="foto-avatar">
+        <mat-icon>person</mat-icon>
+      </div>
+      <div class="foto-text">
+        <h3>Fotografía del niño/a</h3>
+        <p>Más adelante podrás subir una foto desde su perfil.</p>
+      </div>
+    </div>
+
+    <!-- NOMBRE Y APODOS -->
+    <div class="form-grid-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre completo *</mat-label>
+        <input matInput formControlName="nombreCompleto" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Apodos</mat-label>
+        <input matInput formControlName="apodos" />
+      </mat-form-field>
+    </div>
+
+    <!-- FECHA, EDAD, GÉNERO -->
+    <div class="form-grid-3">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Fecha de nacimiento *</mat-label>
+        <input matInput type="date" formControlName="fechaNacimiento" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Edad</mat-label>
+        <input matInput formControlName="edad" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Género *</mat-label>
+        <mat-select formControlName="genero">
+          @for (g of generos; track $index) {
+            <mat-option [value]="g">{{ g }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+
+    <!-- LUGAR NACIMIENTO + TEL -->
+    <div class="form-grid-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Lugar de nacimiento</mat-label>
+        <input matInput formControlName="lugarNacimiento" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Teléfono *</mat-label>
+        <input matInput formControlName="telefono" />
+      </mat-form-field>
+    </div>
+
+    <!-- PADRE / TUTOR -->
+    <mat-form-field appearance="outline">
+      <mat-label>Padre / Tutor *</mat-label>
+      <input matInput formControlName="padreTutor" />
+    </mat-form-field>
+
+  </form>
+
+  <!-- FOOTER -->
+  <footer class="page-footer-edit">
+
+    <span class="step-text">Paso 1 de 5</span>
+
+    <div class="footer-right">
+      <button mat-flat-button color="primary" type="button" (click)="siguiente()">
+        Siguiente
+      </button>
+    </div>
+
+  </footer>
+
+</div>

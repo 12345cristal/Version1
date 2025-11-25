@@ -20,10 +20,63 @@ export const COORDINADOR_ROUTES: Routes = [
     path: '',
     component: LayoutComponent,
     children: [
+
+      // ================================
+      // 📌 MÓDULOS PRINCIPALES
+      // ================================
       { path: 'inicio', component: Inicio },
       { path: 'citas', component: CitasComponent },
       { path: 'personal', component: PersonalComponent },
       { path: 'ninos', component: NinosComponent },
+
+      // ================================
+      // 🚀 WIZARD — NUEVO NIÑO (5 PASOS)
+      // ================================
+      {
+        path: 'ninos/nuevo',
+        children: [
+          {
+            path: '1',
+            loadComponent: () =>
+              import('./pages/ninos/nuevo/paso1/paso1.component')
+                .then(m => m.Paso1Component)
+          },
+          {
+            path: '2',
+            loadComponent: () =>
+              import('./pages/ninos/nuevo/paso2/paso2.component')
+                .then(m => m.Paso2Component)
+          },
+          {
+            path: '3',
+            loadComponent: () =>
+              import('./pages/ninos/nuevo/paso3/paso3.component')
+                .then(m => m.Paso3Component)
+          },
+          {
+            path: '4',
+            loadComponent: () =>
+              import('./pages/ninos/nuevo/paso4/paso4.component')
+                .then(m => m.Paso4Component)
+          },
+          {
+            path: '5',
+            loadComponent: () =>
+              import('./pages/ninos/nuevo/paso5/paso5.component')
+                .then(m => m.Paso5Component)
+          },
+
+          // 👉 /coordinador/ninos/nuevo → paso 1
+          { path: '', redirectTo: '1', pathMatch: 'full' },
+
+          // 👉 Si escribe algo raro → paso 1
+          { path: '**', redirectTo: '1' }
+        ]
+      },
+
+      // ================================
+      // 📌 OTROS MÓDULOS
+      // ================================
       { path: 'reportes', component: Reportes },
       { path: 'usuarios', component: Usuarios },
       { path: 'perfil', component: Perfil },
@@ -34,8 +87,10 @@ export const COORDINADOR_ROUTES: Routes = [
       { path: 'expedientes', component: Expedientes },
       { path: 'mensajes', component: Mensajes },
       { path: 'reportes-clinicos', component: ReportesClinicos },
-      
-      // Ruta por defecto
+
+      // ================================
+      // 🏠 RUTA POR DEFECTO
+      // ================================
       { path: '', redirectTo: 'inicio', pathMatch: 'full' }
     ]
   }

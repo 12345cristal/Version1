@@ -1,15 +1,11 @@
-<div class="modal-wrapper">
+<div class="nino-form-page">
 
-  <!-- HEADER -->
-  <header class="modal-header">
+  <!-- HEADER DE PÁGINA -->
+  <header class="page-header-edit">
     <div>
-      <h2>{{ titulo }}</h2>
-      <p>Completa la información del niño/a</p>
+      <h1>{{ titulo }}</h1>
+      <p class="subtitle">Completa la información del niño/a</p>
     </div>
-
-    <button class="close-btn" type="button" (click)="cerrar()">
-      <mat-icon>close</mat-icon>
-    </button>
   </header>
 
   <!-- STEPS NAV -->
@@ -88,7 +84,7 @@
 
         <mat-form-field appearance="outline">
           <mat-label>Edad</mat-label>
-<input matInput formControlName="edad" [disabled]="true" />
+          <input matInput formControlName="edad" [disabled]="true" />
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -258,8 +254,8 @@
 
   </form>
 
-  <!-- FOOTER -->
-  <footer class="modal-footer">
+  <!-- FOOTER PÁGINA -->
+  <footer class="page-footer-edit">
 
     <button
       mat-stroked-button
@@ -270,7 +266,6 @@
     </button>
 
     <div class="footer-right">
-
       <span class="step-text">Paso {{ step }} de {{ totalPasos }}</span>
 
       <button
@@ -288,9 +283,8 @@
         type="button"
         (click)="guardar()"
         [hidden]="step !== totalPasos">
-        {{ data ? 'Guardar Cambios' : 'Guardar Beneficiario' }}
+        {{ id ? 'Guardar Cambios' : 'Guardar Beneficiario' }}
       </button>
-
     </div>
 
   </footer>

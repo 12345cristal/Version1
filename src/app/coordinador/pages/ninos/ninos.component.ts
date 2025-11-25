@@ -4,11 +4,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatDialog } from '@angular/material/dialog';
-
+import { Router } from '@angular/router';
 import { NinosService } from '../../../services/ninos.service';
 import { Nino } from '../../../interfaces/nuevo_beneficiario/nino.interface';
-import { NinoFormDialogComponent } from './editar/nino-form-dialog.component';
 
 @Component({
   selector: 'app-ninos',
@@ -26,7 +24,7 @@ import { NinoFormDialogComponent } from './editar/nino-form-dialog.component';
 export class NinosComponent implements OnInit {
 
   private servicio = inject(NinosService);
-  private dialog = inject(MatDialog);
+  private router = inject(Router);
 
   ninos = signal<Nino[]>([]);
   filtrados = signal<Nino[]>([]);
@@ -42,7 +40,6 @@ export class NinosComponent implements OnInit {
     this.cargar();
   }
 
-  // ====================== Cargar desde API ======================
   cargar() {
     this.servicio.listar().subscribe(lista => {
       this.ninos.set(lista);
@@ -50,7 +47,6 @@ export class NinosComponent implements OnInit {
     });
   }
 
-  // ====================== Filtros ======================
   actualizarFiltros() {
     const activos = !this.mostrarInactivos();
     const term = this.busqueda().toLowerCase();
@@ -65,23 +61,19 @@ export class NinosComponent implements OnInit {
 
     this.filtrados.set(filtrado);
 
-    // Estadísticas
     this.total.set(this.ninos().length);
     this.activos.set(this.ninos().filter(n => n.estado === 'ACTIVO').length);
 
-    // Nuevos del mes
     this.nuevosMes.set(
       this.ninos().filter(n =>
         n.fechaRegistro?.startsWith(new Date().toISOString().slice(0, 7))
       ).length
     );
 
-    // Progreso promedio
     const p = filtrado.reduce((s, n) => s + (n.progresoGeneral || 0), 0);
     this.progresoPromedio.set(filtrado.length ? Math.round(p / filtrado.length) : 0);
   }
 
-  // ====================== Acciones UI ======================
   buscar(event: any) {
     this.busqueda.set(event.target.value);
     this.actualizarFiltros();
@@ -98,13 +90,11 @@ export class NinosComponent implements OnInit {
   }
 
   abrirNuevo() {
-    this.dialog.open(NinoFormDialogComponent)
-      .afterClosed().subscribe(ok => ok && this.cargar());
+    this.router.navigate(['/coordinador/ninos/nuevo']);
   }
 
   editar(n: Nino) {
-    this.dialog.open(NinoFormDialogComponent, { data: n })
-      .afterClosed().subscribe(ok => ok && this.cargar());
+    this.router.navigate(['/coordinador/ninos/editar', n.id]);
   }
 
   toggleEstado(n: Nino) {
@@ -113,6 +103,6 @@ export class NinosComponent implements OnInit {
   }
 
   verPerfil(n: Nino) {
-    console.log('Ver perfil:', n.id);
+    this.router.navigate(['/coordinador/ninos/perfil', n.id]);
   }
 }

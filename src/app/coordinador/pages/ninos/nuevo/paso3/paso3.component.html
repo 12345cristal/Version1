@@ -1,0 +1,55 @@
+<div class="nino-step-page">
+
+  <header class="page-header-edit">
+    <div>
+      <h1>Nuevo beneficiario</h1>
+      <p class="subtitle">
+        Paso 3 de 5 · Contacto de emergencia
+      </p>
+    </div>
+  </header>
+
+  <form [formGroup]="formulario" class="form-card">
+
+    <h2 class="form-section-title">Contacto de emergencia</h2>
+    <p class="form-section-subtitle">
+      Persona responsable a la que se debe llamar en caso de emergencia.
+    </p>
+
+    <div class="form-grid-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre *</mat-label>
+        <input matInput formControlName="contactoPrincipalNombre" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Relación *</mat-label>
+        <mat-select formControlName="contactoPrincipalRelacion">
+          @for (r of relaciones; track $index) {
+            <mat-option [value]="r">{{ r }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Teléfono *</mat-label>
+      <input matInput formControlName="contactoPrincipalTelefono" />
+    </mat-form-field>
+
+  </form>
+
+  <footer class="page-footer-edit">
+    <button mat-stroked-button type="button" (click)="anterior()">
+      Anterior
+    </button>
+
+    <div class="footer-right">
+      <span class="step-text">Paso 3 de 5</span>
+      <button mat-flat-button color="primary" type="button" (click)="siguiente()">
+        Siguiente
+      </button>
+    </div>
+  </footer>
+
+</div>
